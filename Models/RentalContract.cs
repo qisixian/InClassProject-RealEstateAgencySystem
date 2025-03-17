@@ -17,6 +17,10 @@ namespace RealEstateAgencySystem.Models
         
         [Required(ErrorMessage = "Property ID is required")]
         public int PropertyID { get; set; }
+
+        [Required(ErrorMessage = "Contract terms is required")]
+        [DataType(DataType.MultilineText)]
+        public string ContractTerms { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "Rental price is required")]
         [DataType(DataType.Currency)]
@@ -36,12 +40,12 @@ namespace RealEstateAgencySystem.Models
 
         public bool IsFinalized { get; set; } = true;
 
-        // CreatTime & UpdateTime
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreateTime { get; set; } = DateTime.Now;
+        // CreatTime & LastModifiedTime
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdateTime { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         
         // Navigation properties
         [ForeignKey(nameof(OwnerCustomerID))]

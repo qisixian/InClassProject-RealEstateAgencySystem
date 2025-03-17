@@ -24,18 +24,22 @@ namespace RealEstateAgencySystem.Models
         [Required(ErrorMessage = "Contact address is required")]
         [StringLength(200, ErrorMessage = "Contact address cannot exceed 200 characters")]
         public string ContactAddress { get; set; } = string.Empty;
-        
+
+        [Required(ErrorMessage = "Postal code is required")]
+        [StringLength(10, ErrorMessage = "Postal code cannot exceed 10 characters")]
+        public string PostalCode { get; set; } = string.Empty;
+
         [Required(ErrorMessage = "Password is required")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
 
-        // CreatTime & UpdateTime
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreateTime { get; set; } = DateTime.Now;
+        // CreatTime & LastModifiedTime
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdateTime { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         
         // Navigation property
         // Properties owned by this customer
