@@ -22,6 +22,9 @@ namespace RealEstateAgencySystem.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal RentalPrice { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal DepositPrice { get; set; }
         
         [Required(ErrorMessage = "Start date is required")]
         [DataType(DataType.Date)]
@@ -30,33 +33,25 @@ namespace RealEstateAgencySystem.Models
         [Required(ErrorMessage = "End date is required")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
+
+        public bool IsFinalized { get; set; } = true;
+
+        // CreatTime & UpdateTime
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreateTime { get; set; } = DateTime.Now;
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdateTime { get; set; } = DateTime.Now;
         
         // Navigation properties
-        [ForeignKey("OwnerCustomerID")]
+        [ForeignKey(nameof(OwnerCustomerID))]
         public Customer OwnerCustomer { get; set; }
         
-        [ForeignKey("TenantCustomerID")]
+        [ForeignKey(nameof(TenantCustomerID))]
         public Customer TenantCustomer { get; set; }
         
-        [ForeignKey("PropertyID")]
+        [ForeignKey(nameof(PropertyID))]
         public Property Property { get; set; }
-        
-        // Additional useful properties
-        public string ContractNumber { get; set; }
-        
-        [DataType(DataType.MultilineText)]
-        public string ContractTerms { get; set; }
-        
-        public bool IsActive { get; set; } = true;
-        
-        // Property to check if contract is current
-        [NotMapped]
-        public bool IsCurrent => DateTime.Now >= StartDate && DateTime.Now <= EndDate;
-        
-        // Deposit information
-        [Column(TypeName = "decimal(18, 2)")]
-        public decimal SecurityDeposit { get; set; }
-        
-        public bool IsDepositReturned { get; set; } = false;
+
     }
 }

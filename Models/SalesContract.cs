@@ -27,22 +27,23 @@ namespace RealEstateAgencySystem.Models
         [DataType(DataType.Date)]
         public DateTime TransactionDate { get; set; } = DateTime.Now;
         
+        public bool IsFinalized { get; set; } = false;
+
+        // CreatTime & UpdateTime
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreateTime { get; set; } = DateTime.Now;
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdateTime { get; set; } = DateTime.Now;
+        
         // Navigation properties
-        [ForeignKey("OwnerCustomerID")]
+        [ForeignKey(nameof(OwnerCustomerID))]
         public Customer OwnerCustomer { get; set; }
         
-        [ForeignKey("BuyerCustomerID")]
+        [ForeignKey(nameof(BuyerCustomerID))]
         public Customer BuyerCustomer { get; set; }
         
-        [ForeignKey("PropertyID")]
+        [ForeignKey(nameof(PropertyID))]
         public Property Property { get; set; }
-        
-        // Optional additional properties
-        public string ContractNumber { get; set; }
-        
-        [DataType(DataType.MultilineText)]
-        public string ContractTerms { get; set; }
-        
-        public bool IsFinalized { get; set; } = false;
     }
 }

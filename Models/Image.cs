@@ -14,17 +14,20 @@ namespace RealEstateAgencySystem.Models
         
         [Required]
         public byte[] ImageData { get; set; }
-        
-        // Navigation property to link back to the Property
-        [ForeignKey("PropertyID")]
-        public Property Property { get; set; }
-        
-        // Optional: Add additional properties like file name, content type, etc.
+
         public string FileName { get; set; }
         
         public string ContentType { get; set; }
-        
+
+        // CreatTime & UpdateTime
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UploadDate { get; set; } = DateTime.Now;
+        public DateTime CreateTime { get; set; } = DateTime.Now;
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdateTime { get; set; } = DateTime.Now;
+        
+        // Navigation property to link back to the Property
+        [ForeignKey(nameof(PropertyID))]
+        public Property Property { get; set; }
     }
 }
