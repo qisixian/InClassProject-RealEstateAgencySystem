@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using RealEstateAgencySystem.Models;
 
 namespace RealEstateAgencySystem.Data
@@ -9,6 +10,14 @@ namespace RealEstateAgencySystem.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            
+            optionsBuilder.ConfigureWarnings(warnings => 
+                warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         }
 
         public DbSet<Customer> Customers { get; set; }
@@ -79,19 +88,41 @@ namespace RealEstateAgencySystem.Data
 
         private void SeedData(ModelBuilder modelBuilder)
         {
-
+            var random = new Random();
             string[] countries = { "Canada" };
             string[] provinces = { "BC" };
             string[] cities = { "Vancouver", "North Vancouver", "West Vancouver", "Burnaby", "New Westminster", "Richmond", "Delta", "Coquitlam", "Surrey", "Langley" };
             // Seed Customers
             var customers = new List<Customer>();
-            var random = new Random();
+            string[] commonNames = new string[]
+            {
+                "John Smith",
+                "Emily Johnson",
+                "Michael Williams",
+                "Sarah Brown",
+                "David Miller",
+                "Jessica Davis",
+                "James Wilson",
+                "Laura Martinez",
+                "Robert Anderson",
+                "Sophia Thomas",
+                "Daniel Taylor",
+                "Olivia Moore",
+                "Matthew Jackson",
+                "Isabella White",
+                "Christopher Harris",
+                "Emma Martin",
+                "Joshua Thompson",
+                "Ava Garcia",
+                "Andrew Lee",
+                "Mia Robinson"
+            };
             for (int i = 1; i <= 20; i++)
             {
                 customers.Add(new Customer
                 {
                     CustomerId = i,
-                    Name = $"Customer {i}",
+                    Name = commonNames[i-1],
                     Phone = $"{random.Next(100, 999)}-{random.Next(100, 999)}-{random.Next(1000, 9999)}",
                     Email = $"customer{i}@example.com",
                     ContactAddress = $"{random.Next(100, 9999)} {(char)(65 + random.Next(26))} St, {cities[random.Next(cities.Length)]}, {provinces[random.Next(provinces.Length)]}, {countries[random.Next(countries.Length)]}",

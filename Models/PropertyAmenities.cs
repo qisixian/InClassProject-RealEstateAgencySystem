@@ -53,13 +53,6 @@ namespace RealEstateAgencySystem.Models
         [DataType(DataType.MultilineText)]
         [Display(Name = "Other Amenities")]
         public string OtherAmenities { get; set; } = string.Empty;
-
-        // CreatTime & LastModifiedTime
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         
         // Navigation property
         [ForeignKey(nameof(PropertyID))]

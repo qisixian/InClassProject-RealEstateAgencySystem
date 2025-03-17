@@ -39,13 +39,6 @@ namespace RealEstateAgencySystem.Models
         public DateTime EndDate { get; set; }
 
         public bool IsFinalized { get; set; } = true;
-
-        // CreatTime & LastModifiedTime
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         
         // Navigation properties
         [ForeignKey(nameof(OwnerCustomerID))]

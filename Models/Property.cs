@@ -75,13 +75,6 @@ namespace RealEstateAgencySystem.Models
                 
         [DataType(DataType.MultilineText)]
         public string Description { get; set; } = string.Empty;
-
-        // CreatTime & LastModifiedTime
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         
         // Optional
         public int? OwnerCustomerID { get; set; }

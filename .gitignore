@@ -41,7 +41,7 @@ msbuild.wrn
 TestResult.xml
 
 # Entity Framework
-Migrations/
+# Migrations/
 
 
 # macOS specific files

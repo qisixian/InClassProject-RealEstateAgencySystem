@@ -34,13 +34,6 @@ namespace RealEstateAgencySystem.Models
         [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
-
-        // CreatTime & LastModifiedTime
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         
         // Navigation property
         // Properties owned by this customer

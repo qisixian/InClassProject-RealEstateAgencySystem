@@ -18,13 +18,6 @@ namespace RealEstateAgencySystem.Models
         public string FileName { get; set; }
         
         public string ContentType { get; set; }
-
-        // CreatTime & LastModifiedTime
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         
         // Navigation property to link back to the Property
         [ForeignKey(nameof(PropertyID))]
