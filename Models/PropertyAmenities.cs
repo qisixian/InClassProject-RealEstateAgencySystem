@@ -8,7 +8,8 @@ namespace RealEstateAgencySystem.Models
         [Key]
         public int PropertyAmenitiesID { get; set; }
 
-        public int PropertyID { get; set; } = null!;
+        [Required]
+        public int PropertyID { get; set; }
         
         public bool Elevator { get; set; } = false;
         

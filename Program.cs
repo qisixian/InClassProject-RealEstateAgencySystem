@@ -1,4 +1,4 @@
-using RealEstateAgencySystem;
+using RealEstateAgencySystem.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
