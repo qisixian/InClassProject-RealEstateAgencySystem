@@ -94,29 +94,7 @@ namespace RealEstateAgencySystem.Data
             string[] cities = { "Vancouver", "North Vancouver", "West Vancouver", "Burnaby", "New Westminster", "Richmond", "Delta", "Coquitlam", "Surrey", "Langley" };
             // Seed Customers
             var customers = new List<Customer>();
-            string[] commonNames = new string[]
-            {
-                "John Smith",
-                "Emily Johnson",
-                "Michael Williams",
-                "Sarah Brown",
-                "David Miller",
-                "Jessica Davis",
-                "James Wilson",
-                "Laura Martinez",
-                "Robert Anderson",
-                "Sophia Thomas",
-                "Daniel Taylor",
-                "Olivia Moore",
-                "Matthew Jackson",
-                "Isabella White",
-                "Christopher Harris",
-                "Emma Martin",
-                "Joshua Thompson",
-                "Ava Garcia",
-                "Andrew Lee",
-                "Mia Robinson"
-            };
+            string[] commonNames = new string[]{ "John Smith", "Emily Johnson", "Michael Williams", "Sarah Brown", "David Miller", "Jessica Davis", "James Wilson", "Laura Martinez", "Robert Anderson", "Sophia Thomas", "Daniel Taylor", "Olivia Moore", "Matthew Jackson", "Isabella White", "Christopher Harris", "Emma Martin", "Joshua Thompson", "Ava Garcia", "Andrew Lee", "Mia Robinson"};
             for (int i = 1; i <= 20; i++)
             {
                 customers.Add(new Customer
