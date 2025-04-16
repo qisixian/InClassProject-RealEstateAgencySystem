@@ -43,6 +43,9 @@ TestResult.xml
 # Entity Framework
 # Migrations/
 
+# sqlite
+*.sqlite-wal
+*.sqlite-shm
 
 # macOS specific files
 .DS_Store
