@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using RealEstateAgencySystem.Models;
-using RealEstateAgencySystem.Data;
 using RealEstateAgencySystem.Areas.Admin.Views;
 
 namespace RealEstateAgencySystem.Areas.Admin.Controllers

@@ -34,7 +34,7 @@ dotnet user-secrets set "Authentication:Facebook:AppSecret" "client-secret"
 dotnet user-secrets set "Authentication:Microsoft:ClientId" "ClientId"
 dotnet user-secrets set "Authentication:Microsoft:ClientSecret" "client-secret"
 ```
-run the app
+to run the app
 ```
 dotnet run
 ```
@@ -44,9 +44,9 @@ dotnet run
 
 ### todo
 
-- show image on frontend
 - merge customer table and AspNetUser table somehow
 - figure out a bettter way to solve SQLite decimal ordering error
 
 ### finished
+- show image on frontend
 - Implement database paging on backend

@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RealEstateAgencySystem.Data;
+using RealEstateAgencySystem.Models;
 
 #nullable disable
 
@@ -247,7 +247,7 @@ namespace RealEstateAgencySystem.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
 
                     b.HasData(
                         new
@@ -477,7 +477,7 @@ namespace RealEstateAgencySystem.Migrations
 
                     b.HasIndex("PropertyID");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
 
                     b.HasData(
                         new
@@ -1034,7 +1034,7 @@ namespace RealEstateAgencySystem.Migrations
 
                     b.HasIndex("OwnerCustomerID");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Properties", (string)null);
 
                     b.HasData(
                         new
@@ -1485,7 +1485,7 @@ namespace RealEstateAgencySystem.Migrations
                     b.HasIndex("PropertyID")
                         .IsUnique();
 
-                    b.ToTable("PropertyAmenities");
+                    b.ToTable("PropertyAmenities", (string)null);
 
                     b.HasData(
                         new
@@ -1972,7 +1972,7 @@ namespace RealEstateAgencySystem.Migrations
 
                     b.HasIndex("TenantCustomerID");
 
-                    b.ToTable("RentalContracts");
+                    b.ToTable("RentalContracts", (string)null);
                 });
 
             modelBuilder.Entity("RealEstateAgencySystem.Models.SalesContract", b =>
@@ -2011,7 +2011,7 @@ namespace RealEstateAgencySystem.Migrations
 
                     b.HasIndex("PropertyID");
 
-                    b.ToTable("SalesContracts");
+                    b.ToTable("SalesContracts", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,4 +1,4 @@
-using RealEstateAgencySystem.Data;
+using RealEstateAgencySystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
