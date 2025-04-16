@@ -1,13 +1,13 @@
-@model List<SalesContract>
+@* @model List<SalesContract> *@
 
 @{
-    ViewData["Title"] = " | Manage Contracts";
+    ViewData["Title"] = " | Manage Properties";
 
     // use current controller to determine if tab is active
     var current = ViewContext.RouteData.Values["controller"]!.ToString() ?? "";
 }
 
-<h1 class="mb-2">Manage Contracts</h1>
+<h1 class="mb-2">Manage Properties</h1>
 
 
 <li class="list-group-item">
@@ -15,40 +15,3 @@
 </li>
 
  
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>SalesContractID</th>
-            <th>OwnerCustomerID</th>
-            <th>BuyerCustomerID</th>
-            <th>PropertyID</th>
-            <th>ContractTerms</th>
-            <th>SalePrice</th>
-            <th>TransactionDate</th>
-            <th>IsFinalized</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var SalesContract in Model)
-        {
-            <tr>
-                <td>@SalesContract.SalesContractID</td>
-                <td>@SalesContract.OwnerCustomerID</td>
-                <td>@SalesContract.BuyerCustomerID</td>
-                <td>@SalesContract.PropertyID</td>
-                <td>@SalesContract.ContractTerms</td>
-                <td>@SalesContract.SalePrice</td>
-                <td>@SalesContract.TransactionDate</td>
-                <td>@SalesContract.IsFinalized</td>
-                <td>
-                    <a href="@Url.Action("Edit", "Book", new { id = SalesContract.SalesContractID })" class="btn btn-sm btn-info">Edit</a>
-                    <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@SalesContract.SalesContractID" />
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

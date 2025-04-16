@@ -1,0 +1,14 @@
+
+@{
+    ViewData["Title"] = " | Manage Users";
+
+    // use current controller to determine if tab is active
+    var current = ViewContext.RouteData.Values["controller"]!.ToString() ?? "";
+}
+
+<h1 class="mb-2">Manage Users</h1>
+
+
+<li class="list-group-item">
+    <h5 class="mt-1"><a asp-action="Add">Add a User</a></h5>
+</li>
