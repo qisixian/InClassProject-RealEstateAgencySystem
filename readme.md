@@ -22,6 +22,24 @@ The application will provide the following functionalities:
 ![ER Diagram](ERD.drawio.png)
 
 
+### run app locally
+mock secrets need to be set before run the app
+```
+dotnet user-secrets set "Authentication:Google:ClientId" "ClientId"
+dotnet user-secrets set "Authentication:Google:ClientSecret" "client-secret"
+
+dotnet user-secrets set "Authentication:Facebook:AppId" "AppId"
+dotnet user-secrets set "Authentication:Facebook:AppSecret" "client-secret"
+
+dotnet user-secrets set "Authentication:Microsoft:ClientId" "ClientId"
+dotnet user-secrets set "Authentication:Microsoft:ClientSecret" "client-secret"
+```
+run the app
+```
+dotnet run
+```
+
+
 # Kanban
 
 ### todo
