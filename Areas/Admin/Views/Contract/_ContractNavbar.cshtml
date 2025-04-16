@@ -1,0 +1,27 @@
+
+@{
+    // nested layout view
+    Layout = "_AdminLayout";
+
+    // use current controller to determine if tab is active
+    var current = ViewContext.RouteData.Values["action"]!.ToString() ?? "";
+}
+
+<h1 class="mb-2">Manage Contracts</h1>
+
+<ul class="nav nav-tabs mt-2 mb-3">
+    <li class="nav-item">
+        <a asp-action="ListRentals" asp-controller="Contract"
+           class="nav-link @Nav.Active("ListRentals", current)">
+            Manage Rental Contracts
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="ListSales" asp-controller="Contract"
+           class="nav-link @Nav.Active("ListSales", current)">
+            Manage Sales Contracts
+        </a>
+    </li>
+</ul>
+
+@RenderBody()

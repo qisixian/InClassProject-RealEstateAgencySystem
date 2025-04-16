@@ -79,10 +79,20 @@ app.UseAuthorization();
 app.MapStaticAssets();
 
 app.MapRazorPages();
+app.MapAreaControllerRoute(
+    name: "admin_page_sort",
+    areaName: "Admin",
+    pattern: "Admin/{controller}/{action}/page/{pagenumber}/size/{pagesize}/sort/{sortfield}/{sortdirection}");
+app.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller}/{action}/{id?}");
+app.MapControllerRoute(
+    name: "page_sort",
+    pattern: "{controller}/{action}/page/{pagenumber}/size/{pagesize}/sort/{sortfield}/{sortdirection}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();

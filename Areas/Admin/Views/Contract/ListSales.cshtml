@@ -1,0 +1,91 @@
+﻿
+@model SalesContractListViewModel
+
+@{
+
+    // nested layout view
+    Layout = "_ContractNavbar";
+
+    ViewData["Title"] = " | Manage Contracts";
+    
+    SalesContractGridData current = Model.CurrentRoute;
+    GridData routes = Model.CurrentRoute.Clone();
+}
+
+
+
+
+<li class="list-group-item">
+    <h5 class="mt-1"><a asp-action="Add">Add a Sales Contract</a></h5>
+</li>
+
+@* <a href="@Url.Action("Add", "Book")" class="btn btn-primary">Create Contract</a> *@
+ 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>SalesContractID</th>
+            <th>OwnerCustomerID</th>
+            <th>BuyerCustomerID</th>
+            <th>PropertyID</th>
+            <th>ContractTerms</th>
+            @* <th>SalePrice</th> *@
+            <th>
+                @{ routes.SetSortAndDirection(
+                    nameof(SalesContract.SalePrice), current); }
+                <a asp-action="ListSales" 
+                    asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">SalePrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+                
+            </th>
+            @* <th>TransactionDate</th> *@
+            <th>
+                @{ routes.SetSortAndDirection(
+                    nameof(SalesContract.TransactionDate), current); }
+                <a asp-action="ListSales" 
+                    asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">TransactionDate&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+            </th>
+            <th>IsFinalized</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var SalesContract in Model.SalesContracts)
+        {
+            <tr>
+                <td>@SalesContract.SalesContractID</td>
+                <td>@SalesContract.OwnerCustomerID</td>
+                <td>@SalesContract.BuyerCustomerID</td>
+                <td>@SalesContract.PropertyID</td>
+                <td>@SalesContract.ContractTerms</td>
+                <td>@SalesContract.SalePrice</td>
+                <td>@SalesContract.TransactionDate</td>
+                <td>@SalesContract.IsFinalized</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Book", new { id = SalesContract.SalesContractID })" class="btn btn-sm btn-info">Edit</a>
+                    <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@SalesContract.SalesContractID" />
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@* paging links *@
+@{
+    @* Reset to the current route values. This is necessary to clear the changes made while 
+        creating the sorting links above. *@
+    routes = current.Clone();
+
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        routes.PageNumber = i;
+        string active = @Nav.Active(i, current.PageNumber);
+        <a asp-action="ListSales" asp-all-route-data="@routes.ToDictionary()"
+           class="btn btn-outline-primary @active">@i</a>
+    }
+}

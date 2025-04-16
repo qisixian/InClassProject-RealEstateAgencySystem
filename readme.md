@@ -20,3 +20,14 @@ The application will provide the following functionalities:
 
 ### ER Diagram
 ![ER Diagram](ERD.drawio.png)
+
+
+# Kanban
+
+### todo
+
+- show image on frontend
+- Implement database paging on backend
+- merge customer table and AspNetUser table somehow
+
+### finished
