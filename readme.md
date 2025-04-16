@@ -27,7 +27,8 @@ The application will provide the following functionalities:
 ### todo
 
 - show image on frontend
-- Implement database paging on backend
 - merge customer table and AspNetUser table somehow
+- figure out a bettter way to solve SQLite decimal ordering error
 
 ### finished
+- Implement database paging on backend
