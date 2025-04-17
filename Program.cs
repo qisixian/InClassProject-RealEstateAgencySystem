@@ -45,21 +45,21 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddAuthentication().AddGoogle(options => 
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
-builder.Services.AddAuthentication().AddFacebook(options => 
-    {
-        options.AppId = builder.Configuration["Authentication:Facebook:AppId"];
-        options.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
-    });
-builder.Services.AddAuthentication().AddMicrosoftAccount(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
-    });
+// builder.Services.AddAuthentication().AddGoogle(options => 
+//     {
+//         options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+//         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+//     });
+// builder.Services.AddAuthentication().AddFacebook(options => 
+//     {
+//         options.AppId = builder.Configuration["Authentication:Facebook:AppId"];
+//         options.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
+//     });
+// builder.Services.AddAuthentication().AddMicrosoftAccount(options =>
+//     {
+//         options.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
+//         options.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
+//     });
 
 var app = builder.Build();
 
