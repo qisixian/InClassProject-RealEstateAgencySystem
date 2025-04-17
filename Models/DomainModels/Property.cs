@@ -82,6 +82,8 @@ namespace RealEstateAgencySystem.Models
         // Navigation properties
         public ICollection<Image> Images { get; set; } = new List<Image>();
 
+        // public int? TitleImageID { get; set; }
+
         public PropertyAmenities PropertyAmenities { get; set; }
         
         public ICollection<SalesContract> SalesContracts { get; set; } = new List<SalesContract>();

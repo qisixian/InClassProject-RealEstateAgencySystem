@@ -7,6 +7,7 @@ namespace RealEstateAgencySystem.Models
         // public properties for sorting, filtering, and paging
         public Expression<Func<T, Object>> OrderBy { get; set; } = null!;
         public Expression<Func<T, bool>> Where { get; set; } = null!;
+        public Expression<Func<T, Object>>? Selecter { get; set; } = null!;
         public string OrderByDirection { get; set; } = "asc";  // default
         public string OrderByColumn { get; set; }
         public int PageNumber { get; set; }
@@ -28,6 +29,7 @@ namespace RealEstateAgencySystem.Models
 
         // read-only properties 
         public bool HasWhere => Where != null;
+        public bool HasSelecter => Selecter != null;
         public bool HasOrderBy => OrderBy != null;
         public bool HasPaging => PageNumber > 0 && PageSize > 0;
 

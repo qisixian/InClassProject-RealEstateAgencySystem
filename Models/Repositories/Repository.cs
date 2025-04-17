@@ -44,15 +44,17 @@ namespace RealEstateAgencySystem.Models
             {
                 query = query.Where(options.Where);
             }
+            // if (options.HasSelecter)
+            // {
+            //     query = query.Select(options.Selecter);
+            // }
             if (options.HasOrderBy)
             {
                 // if ordering by decimal, convert to double to avoid error with decimal ordering
                 bool isDecimalOrderBy = 
                     (typeof(T) == typeof(SalesContract) && options.OrderByColumn == "SalePrice") ||
                     (typeof(T) == typeof(RentalContract) && (options.OrderByColumn == "RentalPrice" || options.OrderByColumn == "DepositPrice"));
-                
-                Console.WriteLine("deeebuggggg: "+options.OrderByColumn);
-    
+                    
                 if (isDecimalOrderBy)
                 {
                     var parameter = Expression.Parameter(typeof(T), "x");
