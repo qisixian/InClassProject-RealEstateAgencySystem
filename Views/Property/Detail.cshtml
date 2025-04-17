@@ -1,0 +1,133 @@
+@model Property
+
+<div>
+    <h2>Property Details</h2>
+    <div>
+        
+        <!-- 图片展示 -->
+        @if (Model.Images != null && Model.Images.Any())
+        {
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4>Property Images</h4>
+                    <div class="row">
+                        @foreach (var image in Model.Images)
+                        {
+                            <div class="col-md-4 mb-3">
+                                <img src="@Url.Action("Get", "Image", new { id = image.ImageID })" 
+                                     class="img-fluid rounded" 
+                                     alt="Property image" 
+                                     style="width: 100%; height: 200px; object-fit: cover;">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <!-- 描述 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Description</h4>
+                <p>@Model.Description</p>
+            </div>
+        </div>
+        <!-- 基本信息 -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h4>Basic Information</h4>
+                <p><strong>Property ID:</strong> @Model.PropertyID</p>
+                <p><strong>Type:</strong> @Model.PropertyType</p>
+                <p><strong>Built in:</strong> @Model.BuildYear</p>
+                <p><strong>Size:</strong> @Model.SizeOfHouse sq ft</p>
+                <p><strong>Bedrooms:</strong> @Model.Bedrooms</p>
+                <p><strong>Bathrooms:</strong> @Model.Bathrooms</p>
+                <p><strong>Current Status:</strong> @Model.CurrentStatus</p>
+                <p><strong>Listed on:</strong> @Model.ListingDate.ToShortDateString()</p>
+                @if (Model.RentalPrice.HasValue)
+                {
+                    <p><strong>Rental Price:</strong> @Model.RentalPrice?.ToString("C")</p>
+                }
+                @if (Model.SellingPrice.HasValue)
+                {
+                    <p><strong>Selling Price:</strong> @Model.SellingPrice?.ToString("C")</p>
+                }
+            </div>
+            
+            <div class="col-md-6">
+                <h4>Location</h4>
+                <p><strong>Address:</strong> @Model.PropertyAddress</p>
+                <p><strong>City:</strong> @Model.City</p>
+                <p><strong>Province:</strong> @Model.Province</p>
+                <p><strong>Country:</strong> @Model.Country</p>
+                <p><strong>Postal Code:</strong> @Model.PostalCode</p>
+            </div>
+        </div>
+        
+        <!-- 设施信息 -->
+        @if (Model.PropertyAmenities != null)
+        {
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4>Amenities</h4>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">Elevator: @(Model.PropertyAmenities.Elevator ? "✅" : "❌")</li>
+                                <li class="list-group-item">Refrigerator: @(Model.PropertyAmenities.Refrigerator ? "✅" : "❌")</li>
+                                <li class="list-group-item">Cooktop: @(Model.PropertyAmenities.Cooktop ? "✅" : "❌")</li>
+                                <li class="list-group-item">Microwave: @(Model.PropertyAmenities.Microwave ? "✅" : "❌")</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">Dishwasher: @(Model.PropertyAmenities.Dishwasher ? "✅" : "❌")</li>
+                                <li class="list-group-item">Fire Sprinkler System: @(Model.PropertyAmenities.FireSprinklerSystem ? "✅" : "❌")</li>
+                                <li class="list-group-item">Washer: @(Model.PropertyAmenities.Washer ? "✅" : "❌")</li>
+                                <li class="list-group-item">Dryer: @(Model.PropertyAmenities.Dryer ? "✅" : "❌")</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">Heating: @(Model.PropertyAmenities.Heating ? "✅" : "❌")</li>
+                                <li class="list-group-item">Air Conditioning: @(Model.PropertyAmenities.AirConditioning ? "✅" : "❌")</li>
+                                <li class="list-group-item">Security System: @(Model.PropertyAmenities.SecuritySystem ? "✅" : "❌")</li>
+                                <li class="list-group-item">Pet Friendly: @(Model.PropertyAmenities.PetFriendly ? "✅" : "❌")</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">Fitness Room: @(Model.PropertyAmenities.FitnessRoom ? "✅" : "❌")</li>
+                                <li class="list-group-item">Swimming Pool: @(Model.PropertyAmenities.SwimmingPool ? "✅" : "❌")</li>
+                                <li class="list-group-item">Parking Lot: @(Model.PropertyAmenities.ParkingLot ? "✅" : "❌")</li>
+                                <li class="list-group-item">Locker: @(Model.PropertyAmenities.Locker ? "✅" : "❌")</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.PropertyAmenities.OtherAmenities))
+                    {
+                        <div class="mt-4">
+                            <h5>Other Amenities</h5>
+                            <p>@Model.PropertyAmenities.OtherAmenities</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        
+        <!-- 所有者信息 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Owner Information</h4>
+                @if (Model.Owner != null)
+                {
+                    <p><strong>Owner ID:</strong> @Model.Owner.CustomerId</p>
+                    <p><strong>Name:</strong> @Model.Owner.Name</p>
+                    <p><strong>Email:</strong> @Model.Owner.Email</p>
+                    <p><strong>Phone:</strong> @Model.Owner.Phone</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

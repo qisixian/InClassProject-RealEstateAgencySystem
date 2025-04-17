@@ -22,6 +22,18 @@ The application will provide the following functionalities:
 ![ER Diagram](ERD.drawio.png)
 
 
+### Use case Diagram
+
+Explore page (needs a lot of filter)
+- property Details page
+
+User page
+- upload property
+- my Listing property
+
+when register, user need to choose to be a buyer or a saler.
+
+
 ### run app locally
 mock secrets need to be set before run the app
 ```
