@@ -9,6 +9,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,25 +20,28 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RealEstateAgencySystem.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RealEstateAgencySystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Property" asp-action="List">Explore</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Property"
+                                asp-action="List">Explore</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="1">Property Detail</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Property" asp-action="Detail"
+                                asp-route-id="1">Property Detail</a>
                         </li>
                     </ul>
-                    
+
 
                     <ul class="navbar-nav">
                         @using Microsoft.AspNetCore.Identity
@@ -47,30 +51,54 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                                <a id="manage" class="nav-link text-dark" asp-area="Identity"
+                                    asp-page="/Account/Manage/Index" title="Manage">Hello
+                                    @UserManager.GetUserName(User)!</a>
                             </li>
                             <li class="nav-item">
-                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                                    asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button id="logout" type="submit"
+                                        class="nav-link btn btn-link text-dark border-0">Logout</button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                <a class="nav-link text-dark" id="register" asp-area="Identity"
+                                    asp-page="/Account/Register">Register</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                <a class="nav-link text-dark" id="login" asp-area="Identity"
+                                    asp-page="/Account/Login">Login</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link @Nav.Active("Admin", current)" asp-action="ListRentals" asp-controller="Contract"
-                                asp-area="Admin">
+                            <a class="nav-link @Nav.Active("Admin", current)" asp-action="ListRentals"
+                                asp-controller="Contract" asp-area="Admin">
                                 <i class="bi bi-gear-fill"></i>&nbsp;Admin
                             </a>
                         </li>
                     </ul>
+                </div>
+            </div>
+            <!-- AI Helper Button -->
+            <button id="ai-helper-btn" class="btn btn-primary position-fixed"
+                style="bottom: 20px; right: 20px; z-index: 999;">
+                AI Helper
+            </button>
+
+            <!-- AI Helper Popup Box -->
+            <div id="ai-helper-box" class="ai-helper-box" style="display: none;">
+                <div class="ai-helper-header">
+                    <h5>Ask AI</h5>
+                    <button id="close-btn" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="ai-helper-body">
+                    <textarea id="user-input" class="form-control" rows="4" placeholder="Ask me anything..."></textarea>
+                    <button id="ask-btn" class="btn btn-primary mt-3">Ask</button>
+                    <div id="ai-response" class="mt-3"></div>
                 </div>
             </div>
         </nav>
@@ -89,6 +117,63 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.getElementById('ai-helper-btn').addEventListener('click', function () {
+            document.getElementById('ai-helper-box').style.display = 'block';
+        });
+
+        document.getElementById('close-btn').addEventListener('click', function () {
+            document.getElementById('ai-helper-box').style.display = 'none';
+            document.getElementById('user-input').value = ''; // Clear input when closing
+            document.getElementById('ai-response').innerHTML = ''; // Clear response when closing
+        });
+
+        document.getElementById('ask-btn').addEventListener('click', async function () {
+            var userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) {
+                alert('Please ask a question!');
+                return;
+            }
+
+            document.getElementById('ai-response').innerHTML = "Thinking...";
+            document.getElementById('ai-response').style.display = 'block';
+
+            // Call ChatGPT API (or any AI API) to get the response
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer YOUR_API_KEY'
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        messages: [
+                            { role: "system", content: "You are a helpful assistant." },
+                            { role: "user", content: userInput }
+                        ],
+                        max_tokens: 150
+                    })
+                });
+
+                const data = await response.json();
+                console.log(data); // 👈 调试输出返回内容
+
+                if (data.choices && data.choices.length > 0) {
+                    document.getElementById('ai-response').innerHTML = data.choices[0].message.content.trim();
+                } else if (data.error) {
+                    document.getElementById('ai-response').innerHTML = `⚠️ Error: ${data.error.message}`;
+                } else {
+                    document.getElementById('ai-response').innerHTML = "⚠️ Unexpected response format.";
+                }
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('ai-response').innerHTML = "⚠️ Error: Could not get a response.";
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

@@ -29,3 +29,43 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* AI Helper Popup Box Styles */
+.ai-helper-box {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 999;
+  display: none;
+}
+
+.ai-helper-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ai-helper-body {
+  margin-top: 10px;
+}
+
+#user-input {
+  width: 100%;
+}
+
+#ask-btn {
+  width: 100%;
+}
+
+#ai-response {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  display: none;
+}
