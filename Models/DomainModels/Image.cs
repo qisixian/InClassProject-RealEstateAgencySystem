@@ -13,14 +13,14 @@ namespace RealEstateAgencySystem.Models
         public int PropertyId { get; set; }
         
         [Required]
-        public byte[] ImageData { get; set; }
+        public required byte[] ImageData { get; set; }
 
-        public string FileName { get; set; }
+        public required string FileName { get; set; }
         
-        public string ContentType { get; set; }
+        public required string ContentType { get; set; }
         
         // Navigation property to link back to the Property
         [ForeignKey(nameof(PropertyId))]
-        public Property Property { get; set; }
+        public Property? Property { get; set; }
     }
 }

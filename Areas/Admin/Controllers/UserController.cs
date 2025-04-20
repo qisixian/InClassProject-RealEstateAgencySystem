@@ -12,19 +12,46 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
         // private AppDbContext context;
         // public ContractController(AppDbContext ctx) => context = ctx;
 
-        private Repository<Property> data { get; set; }
+        private Repository<Customer> data { get; set; }
+        private AppDbContext context;
 
         public UserController(AppDbContext ctx)
         {
-            data = new Repository<Property>(ctx);
+            data = new Repository<Customer>(ctx);
+            context = ctx;
         }
 
         public RedirectToActionResult Index() => RedirectToAction("List");
 
 
-        public ViewResult List()
+        public ViewResult List(CustomerGridData values)
         {
-            return View();
+            // create options for querying
+            var options = new QueryOptions<Customer>
+            {
+                OrderByDirection = values.SortDirection,
+                PageNumber = values.PageNumber,
+                PageSize = values.PageSize
+            };
+            // if (values.IsSortBySalePrice)
+            // {
+            //     options.OrderBy = c => c.SalePrice;
+            //     options.OrderByColumn = "SalePrice";
+            // }
+            // else
+            // {
+            //     options.OrderBy = c => c.TransactionDate;
+            // }
+
+
+            // create view model
+            var vm = new UserListViewModel
+            {
+                Customers = data.List(options),
+                CurrentRoute = values,
+                TotalPages = values.GetTotalPages(data.Count)
+            };
+            return View(vm);
         }
     }
 }

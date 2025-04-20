@@ -1,10 +1,10 @@
-@* @model List<SalesContract> *@
+@model PropertyListViewModel
 
 @{
     ViewData["Title"] = " | Manage Properties";
 
-    // use current controller to determine if tab is active
-    var current = ViewContext.RouteData.Values["controller"]!.ToString() ?? "";
+    PropertyGridData current = Model.CurrentRoute;
+    GridData routes = Model.CurrentRoute.Clone();
 }
 
 <h1 class="mb-2">Manage Properties</h1>
@@ -14,4 +14,83 @@
     <h5 class="mt-1"><a asp-action="Add">Add a Property</a></h5>
 </li>
 
- 
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>PropertyId</th>
+            <th>PropertyAddress</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Country</th>
+            <th>PostalCode</th>
+            <th>PropertyType</th>
+            <th>BuildYear</th>
+            <th>SizeOfHouse</th>
+            <th>Bedrooms</th>
+            <th>Bathrooms</th>
+            <th>CurrentStatus</th>
+            <th>ListingDate</th>
+            <th>RentalPrice</th>
+            <th>SellingPrice</th>
+            <th>Description</th>
+            <th>OwnerCustomerId</th>
+            @* <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(RentalRecord.RentalPrice), current);
+                }
+                <a asp-action="ListRentals" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">RentalPrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th> *@
+            
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Property in Model.Properties)
+        {
+            <tr>
+                <td>@Property.PropertyId</td>
+                <td>@Property.PropertyAddress</td>
+                <td>@Property.City</td>
+                <td>@Property.Province</td>
+                <td>@Property.Country</td>
+                <td>@Property.PostalCode</td>
+                <td>@Property.PropertyType</td>
+                <td>@Property.BuildYear</td>
+                <td>@Property.SizeOfHouse</td>
+                <td>@Property.Bedrooms</td>
+                <td>@Property.Bathrooms</td>
+                <td>@Property.CurrentStatus</td>
+                <td>@Property.ListingDate</td>
+                <td>@Property.RentalPrice</td>
+                <td>@Property.SellingPrice</td>
+                <td>@Property.Description</td>
+                <td>@Property.OwnerCustomerId</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Book", new { id = Property.PropertyId })"
+                        class="btn btn-sm btn-info">Edit</a>
+                    <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@Property.PropertyId" />
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@* paging links *@
+@{
+    routes = current.Clone();
+
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        routes.PageNumber = i;
+        string active = @Nav.Active(i, current.PageNumber);
+        <a asp-action="List" asp-all-route-data="@routes.ToDictionary()" class="btn btn-outline-primary @active">@i</a>
+    }
+}

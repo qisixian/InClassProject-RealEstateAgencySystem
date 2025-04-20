@@ -10,10 +10,10 @@ namespace RealEstateAgencySystem.Models
         public int RentalRecordId { get; set; }
         
         [Required(ErrorMessage = "Owner Id is required")]
-        public string OwnerCustomerId { get; set; }
+        public required string OwnerCustomerId { get; set; }
         
         [Required(ErrorMessage = "Tenant Id is required")]
-        public string TenantCustomerId { get; set; }
+        public required string TenantCustomerId { get; set; }
         
         [Required(ErrorMessage = "Property Id is required")]
         public int PropertyId { get; set; }
@@ -42,13 +42,13 @@ namespace RealEstateAgencySystem.Models
         
         // Navigation properties
         [ForeignKey(nameof(OwnerCustomerId))]
-        public Customer OwnerCustomer { get; set; }
+        public Customer? OwnerCustomer { get; set; }
         
         [ForeignKey(nameof(TenantCustomerId))]
-        public Customer TenantCustomer { get; set; }
+        public Customer? TenantCustomer { get; set; }
         
         [ForeignKey(nameof(PropertyId))]
-        public Property Property { get; set; }
+        public Property? Property { get; set; }
 
     }
 }

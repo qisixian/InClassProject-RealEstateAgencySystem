@@ -7,8 +7,6 @@ namespace RealEstateAgencySystem.Models
         // set initial sort field in constructor
         public PropertyGridData() => SortField = nameof(Property.PropertyId);
 
-        public int PageSize { get; set; } = 20;
-
         // sort flags
         // [JsonIgnore]
         // public bool IsSortByRentalPrice =>

@@ -59,6 +59,9 @@ namespace RealEstateAgencySystem.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            public string Name { get; set; } = string.Empty;
+            public string ContactAddress { get; set; } = string.Empty;
+            public string PostalCode { get; set; } = string.Empty;
         }
 
         private async Task LoadAsync(Customer user)
@@ -70,7 +73,10 @@ namespace RealEstateAgencySystem.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Name = user.Name,
+                ContactAddress = user.ContactAddress, 
+                PostalCode = user.PostalCode 
             };
         }
 
@@ -109,6 +115,17 @@ namespace RealEstateAgencySystem.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+            }
+
+            user.Name = Input.Name;
+            user.ContactAddress = Input.ContactAddress;
+            user.PostalCode = Input.PostalCode;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                StatusMessage = "Unexpected error when trying to update user profile.";
+                return RedirectToPage();
             }
 
             await _signInManager.RefreshSignInAsync(user);

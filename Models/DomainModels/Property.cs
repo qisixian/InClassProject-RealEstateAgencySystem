@@ -83,15 +83,15 @@ namespace RealEstateAgencySystem.Models
         public ICollection<Image> Images { get; set; } = new List<Image>();
 
         [NotMapped]
-        public ICollection<int> ImageIds { get; set; } = new List<int>();
+        public ICollection<int>? ImageIds { get; set; } = new List<int>();
 
-        public PropertyAmenities PropertyAmenities { get; set; }
+        public PropertyAmenities? PropertyAmenities { get; set; }
         
-        public ICollection<SalesRecord> SalesRecords { get; set; } = new List<SalesRecord>();
+        public ICollection<SalesRecord>? SalesRecords { get; set; } = new List<SalesRecord>();
         
-        public ICollection<RentalRecord> RentalRecords { get; set; } = new List<RentalRecord>();
+        public ICollection<RentalRecord>? RentalRecords { get; set; } = new List<RentalRecord>();
         
         [ForeignKey(nameof(OwnerCustomerId))]
-        public Customer Owner { get; set; }
+        public Customer? Owner { get; set; }
     }
 }

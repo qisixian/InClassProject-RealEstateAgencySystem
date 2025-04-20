@@ -55,13 +55,24 @@ dotnet run
 # Kanban
 
 ### todo
+new feature:
+add error handling to edit user profile
+add property post list
+add upload new property feature
+- add a new property / edit property page
+- - add a edit property page
+- - add a new property / edit property controller
+- add a delete property controller
+add owner infomation in property detail
 
-- merge customer table and AspNetUser table somehow
+optimization:
+- fetch ImageId but not image object in Property Detail action
 - figure out a bettter way to solve SQLite decimal ordering error
 
 ### finished
 - show image on frontend
 - Implement database paging on backend
+- merge customer table and AspNetUser table
 
 
 chanllenge record:

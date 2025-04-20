@@ -56,6 +56,6 @@ namespace RealEstateAgencySystem.Models
         
         // Navigation property
         [ForeignKey(nameof(PropertyId))]
-        public Property Property { get; set; }
+        public Property? Property { get; set; }
     }
 }

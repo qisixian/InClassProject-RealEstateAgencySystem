@@ -29,7 +29,7 @@ namespace RealEstateAgencySystem.Controllers
             {
                 OrderByDirection = values.SortDirection,
                 PageNumber = values.PageNumber,
-                PageSize = values.PageSize
+                PageSize = 40
             };
             // if (values.IsSortBySalePrice)
             // {
@@ -53,7 +53,7 @@ namespace RealEstateAgencySystem.Controllers
         }
 
 
-        public ViewResult Detail(int id)
+        public IActionResult Detail(int id)
         {
             // create options for querying SalesContract
             var options = new QueryOptions<Property>
@@ -65,6 +65,10 @@ namespace RealEstateAgencySystem.Controllers
             };
             
             var property = data.Get(id);
+            if (property == null)
+            {
+                return NotFound();
+            }
             property.PropertyAmenities = context.PropertyAmenities.FirstOrDefault(c => c.PropertyId == id);
             property.Images = context.Images.Where(c => c.PropertyId == id).ToList();
 

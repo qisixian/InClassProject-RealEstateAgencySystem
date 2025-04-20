@@ -30,9 +30,9 @@ namespace RealEstateAgencySystem.Models
 
         public class PropertyTypeConfig
         {
-            public string PropertyType { get; init; }  // 例如 "House"（用于 DB 存储）
+            public required string PropertyType { get; init; }
             public double PriceFactor { get; init; }
-            public string Description { get; init; }
+            public required string Description { get; init; }
             public (int Min, int Max) Bedrooms { get; init; }
             public (int Min, int Max) Bathrooms { get; init; }
             public (int Min, int Max) Size { get; init; }
@@ -165,7 +165,6 @@ namespace RealEstateAgencySystem.Models
             };
 
             var properties = new List<Property>();
-            int propertyId = 1;
 
             // 为每种状态创建10个物业
             foreach (var status in statuses)
