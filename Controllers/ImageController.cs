@@ -15,7 +15,7 @@ public class ImageController : Controller
 
     public IActionResult Get(int id)
     {
-        var image = context.Images.FirstOrDefault(p => p.ImageID == id);
+        var image = context.Images.FirstOrDefault(p => p.ImageId == id);
         if (image == null || image.ImageData == null)
             return NotFound();
         Console.WriteLine($"Image found: {image != null}, ContentType: {image?.ContentType}, Size: {image?.ImageData?.Length}");
@@ -45,8 +45,8 @@ public class ImageController : Controller
 
     //             var image = new Image
     //             {
-    //                 ImageID = i,
-    //                 PropertyID = propertyId,
+    //                 ImageId = i,
+    //                 PropertyId = propertyId,
     //                 FileName = $"property_{propertyId}_image_{i % 3 + 1}.jpg",
     //                 ContentType = "image/jpeg",
     //                 ImageData = imageData

@@ -1,26 +1,16 @@
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;  // for NotMapped
 
 namespace RealEstateAgencySystem.Models
 {
-    public class Customer
+    public class Customer : IdentityUser
     {
-        [Key]
-        public int CustomerId { get; set; }
         
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
         public string Name { get; set; } = string.Empty;
         
-        [Phone]
-        [Required(ErrorMessage = "Phone number is required")]
-        [StringLength(20, ErrorMessage = "Phone number cannot exceed 20 characters")]
-        public string Phone { get; set; } = string.Empty;
-        
-        [EmailAddress]
-        [Required(ErrorMessage = "Email address is required")]
-        [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters")]
-        public string Email { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "Contact address is required")]
         [StringLength(200, ErrorMessage = "Contact address cannot exceed 200 characters")]
@@ -30,26 +20,25 @@ namespace RealEstateAgencySystem.Models
         [StringLength(10, ErrorMessage = "Postal code cannot exceed 10 characters")]
         public string PostalCode { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Password is required")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters")]
-        [DataType(DataType.Password)]
-        public string Password { get; set; } = string.Empty;
+
+        [NotMapped]
+        public IList<string> RoleNames { get; set; } = null!;
+
         
         // Navigation property
         // Properties owned by this customer
         public ICollection<Property> OwnedProperties { get; set; } = new List<Property>();
         
         // Sales contracts where the customer is the owner/seller
-        public ICollection<SalesContract> SalesAsOwner { get; set; } = new List<SalesContract>();
+        public ICollection<SalesRecord> SalesAsOwner { get; set; } = new List<SalesRecord>();
         
         // Sales contracts where the customer is the buyer
-        public ICollection<SalesContract> SalesAsBuyer { get; set; } = new List<SalesContract>();
+        public ICollection<SalesRecord> SalesAsBuyer { get; set; } = new List<SalesRecord>();
         
         // Rental contracts where the customer is the property owner
-        public ICollection<RentalContract> RentalsAsOwner { get; set; } = new List<RentalContract>();
+        public ICollection<RentalRecord> RentalsAsOwner { get; set; } = new List<RentalRecord>();
         
         // Rental contracts where the customer is the tenant
-        public ICollection<RentalContract> RentalsAsTenant { get; set; } = new List<RentalContract>();
-        
+        public ICollection<RentalRecord> RentalsAsTenant { get; set; } = new List<RentalRecord>();
     }
 }

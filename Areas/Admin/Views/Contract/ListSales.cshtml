@@ -1,14 +1,14 @@
 ﻿
-@model SalesContractListViewModel
+@model SalesRecordListViewModel
 
 @{
 
     // nested layout view
     Layout = "_ContractNavbar";
 
-    ViewData["Title"] = " | Manage Contracts";
+    ViewData["Title"] = " | Manage Records";
     
-    SalesContractGridData current = Model.CurrentRoute;
+    SalesRecordGridData current = Model.CurrentRoute;
     GridData routes = Model.CurrentRoute.Clone();
 }
 
@@ -16,23 +16,23 @@
 
 
 <li class="list-group-item">
-    <h5 class="mt-1"><a asp-action="Add">Add a Sales Contract</a></h5>
+    <h5 class="mt-1"><a asp-action="Add">Add a Sales Record</a></h5>
 </li>
 
-@* <a href="@Url.Action("Add", "Book")" class="btn btn-primary">Create Contract</a> *@
+@* <a href="@Url.Action("Add", "Book")" class="btn btn-primary">Create Record</a> *@
  
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>SalesContractID</th>
-            <th>OwnerCustomerID</th>
-            <th>BuyerCustomerID</th>
-            <th>PropertyID</th>
+            <th>SalesRecordId</th>
+            <th>OwnerCustomerId</th>
+            <th>BuyerCustomerId</th>
+            <th>PropertyId</th>
             <th>ContractTerms</th>
             @* <th>SalePrice</th> *@
             <th>
                 @{ routes.SetSortAndDirection(
-                    nameof(SalesContract.SalePrice), current); }
+                    nameof(SalesRecord.SalePrice), current); }
                 <a asp-action="ListSales" 
                     asp-all-route-data="@routes.ToDictionary()"
                     class="text-decoration-none">SalePrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
@@ -41,7 +41,7 @@
             @* <th>TransactionDate</th> *@
             <th>
                 @{ routes.SetSortAndDirection(
-                    nameof(SalesContract.TransactionDate), current); }
+                    nameof(SalesRecord.TransactionDate), current); }
                 <a asp-action="ListSales" 
                     asp-all-route-data="@routes.ToDictionary()"
                     class="text-decoration-none">TransactionDate&nbsp;<i class="bi bi-arrows-vertical"></i></a>
@@ -51,21 +51,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var SalesContract in Model.SalesContracts)
+        @foreach (var SalesContract in Model.SalesRecords)
         {
             <tr>
-                <td>@SalesContract.SalesContractID</td>
-                <td>@SalesContract.OwnerCustomerID</td>
-                <td>@SalesContract.BuyerCustomerID</td>
-                <td>@SalesContract.PropertyID</td>
+                <td>@SalesContract.SalesRecordId</td>
+                <td>@SalesContract.OwnerCustomerId</td>
+                <td>@SalesContract.BuyerCustomerId</td>
+                <td>@SalesContract.PropertyId</td>
                 <td>@SalesContract.ContractTerms</td>
                 <td>@SalesContract.SalePrice</td>
                 <td>@SalesContract.TransactionDate</td>
                 <td>@SalesContract.IsFinalized</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Book", new { id = SalesContract.SalesContractID })" class="btn btn-sm btn-info">Edit</a>
+                    <a href="@Url.Action("Edit", "Book", new { id = SalesContract.SalesRecordId })" class="btn btn-sm btn-info">Edit</a>
                     <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@SalesContract.SalesContractID" />
+                        <input type="hidden" name="id" value="@SalesContract.SalesRecordId" />
                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </td>

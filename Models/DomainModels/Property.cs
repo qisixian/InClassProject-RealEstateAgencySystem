@@ -8,7 +8,7 @@ namespace RealEstateAgencySystem.Models
     public class Property
     {
         [Key]
-        public int PropertyID { get; set; }
+        public int PropertyId { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
         [StringLength(100, ErrorMessage = "Country cannot exceed 100 characters")]
@@ -77,20 +77,21 @@ namespace RealEstateAgencySystem.Models
         public string Description { get; set; } = string.Empty;
         
         // Optional
-        public int? OwnerCustomerID { get; set; }
+        public string? OwnerCustomerId { get; set; }
         
         // Navigation properties
         public ICollection<Image> Images { get; set; } = new List<Image>();
 
-        // public int? TitleImageID { get; set; }
+        [NotMapped]
+        public ICollection<int> ImageIds { get; set; } = new List<int>();
 
         public PropertyAmenities PropertyAmenities { get; set; }
         
-        public ICollection<SalesContract> SalesContracts { get; set; } = new List<SalesContract>();
+        public ICollection<SalesRecord> SalesRecords { get; set; } = new List<SalesRecord>();
         
-        public ICollection<RentalContract> RentalContracts { get; set; } = new List<RentalContract>();
+        public ICollection<RentalRecord> RentalRecords { get; set; } = new List<RentalRecord>();
         
-        [ForeignKey(nameof(OwnerCustomerID))]
+        [ForeignKey(nameof(OwnerCustomerId))]
         public Customer Owner { get; set; }
     }
 }

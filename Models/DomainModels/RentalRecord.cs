@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealEstateAgencySystem.Models
 {
-    public class RentalContract
+    public class RentalRecord
     {
         [Key]
-        public int RentalContractID { get; set; }
+        public int RentalRecordId { get; set; }
         
-        [Required(ErrorMessage = "Owner ID is required")]
-        public int OwnerCustomerID { get; set; }
+        [Required(ErrorMessage = "Owner Id is required")]
+        public string OwnerCustomerId { get; set; }
         
-        [Required(ErrorMessage = "Tenant ID is required")]
-        public int TenantCustomerID { get; set; }
+        [Required(ErrorMessage = "Tenant Id is required")]
+        public string TenantCustomerId { get; set; }
         
-        [Required(ErrorMessage = "Property ID is required")]
-        public int PropertyID { get; set; }
+        [Required(ErrorMessage = "Property Id is required")]
+        public int PropertyId { get; set; }
 
         [Required(ErrorMessage = "Contract terms is required")]
         [DataType(DataType.MultilineText)]
@@ -41,13 +41,13 @@ namespace RealEstateAgencySystem.Models
         public bool IsFinalized { get; set; } = true;
         
         // Navigation properties
-        [ForeignKey(nameof(OwnerCustomerID))]
+        [ForeignKey(nameof(OwnerCustomerId))]
         public Customer OwnerCustomer { get; set; }
         
-        [ForeignKey(nameof(TenantCustomerID))]
+        [ForeignKey(nameof(TenantCustomerId))]
         public Customer TenantCustomer { get; set; }
         
-        [ForeignKey(nameof(PropertyID))]
+        [ForeignKey(nameof(PropertyId))]
         public Property Property { get; set; }
 
     }

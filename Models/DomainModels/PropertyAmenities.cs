@@ -6,10 +6,10 @@ namespace RealEstateAgencySystem.Models
     public class PropertyAmenities
     {   
         [Key]
-        public int PropertyAmenitiesID { get; set; }
+        public int PropertyAmenitiesId { get; set; }
 
         [Required]
-        public int PropertyID { get; set; }
+        public int PropertyId { get; set; }
         
         public bool Elevator { get; set; } = false;
         
@@ -55,7 +55,7 @@ namespace RealEstateAgencySystem.Models
         public string OtherAmenities { get; set; } = string.Empty;
         
         // Navigation property
-        [ForeignKey(nameof(PropertyID))]
+        [ForeignKey(nameof(PropertyId))]
         public Property Property { get; set; }
     }
 }

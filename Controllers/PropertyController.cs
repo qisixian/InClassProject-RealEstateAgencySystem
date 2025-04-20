@@ -65,8 +65,8 @@ namespace RealEstateAgencySystem.Controllers
             };
             
             var property = data.Get(id);
-            property.PropertyAmenities = context.PropertyAmenities.FirstOrDefault(c => c.PropertyID == id);
-            property.Images = context.Images.Where(c => c.PropertyID == id).ToList();
+            property.PropertyAmenities = context.PropertyAmenities.FirstOrDefault(c => c.PropertyId == id);
+            property.Images = context.Images.Where(c => c.PropertyId == id).ToList();
 
             return View(property);
         }

@@ -2,15 +2,15 @@
 
 namespace RealEstateAgencySystem.Models
 {
-    public class SalesContractGridData : GridData
+    public class SalesRecordGridData : GridData
     {
         // set initial sort field in constructor
-        public SalesContractGridData() => SortField = nameof(SalesContract.TransactionDate);
+        public SalesRecordGridData() => SortField = nameof(SalesRecord.TransactionDate);
 
         // sort flags
         [JsonIgnore]
         public bool IsSortBySalePrice =>
-            SortField.EqualsNoCase(nameof(SalesContract.SalePrice));
+            SortField.EqualsNoCase(nameof(SalesRecord.SalePrice));
         // [JsonIgnore]
         // public bool IsSortByPrice =>
         //     SortField.EqualsNoCase(nameof(Book.Price));

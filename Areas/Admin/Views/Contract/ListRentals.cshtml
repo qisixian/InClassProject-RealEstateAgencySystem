@@ -1,14 +1,14 @@
 ﻿
-@model RentalContractListViewModel
+@model RentalRecordListViewModel
 
 @{
 
     // nested layout view
     Layout = "_ContractNavbar";
 
-    ViewData["Title"] = " | Manage Contracts";
+    ViewData["Title"] = " | Manage Records";
     
-    RentalContractGridData current = Model.CurrentRoute;
+    RentalRecordGridData current = Model.CurrentRoute;
     GridData routes = Model.CurrentRoute.Clone();
 }
 
@@ -16,22 +16,22 @@
 
 
 <li class="list-group-item">
-    <h5 class="mt-1"><a asp-action="Add">Add a Rental Contract</a></h5>
+    <h5 class="mt-1"><a asp-action="Add">Add a Rental Record</a></h5>
 </li>
 
-@* <a href="@Url.Action("Add", "Book")" class="btn btn-primary">Create Contract</a> *@
+@* <a href="@Url.Action("Add", "Book")" class="btn btn-primary">Create Record</a> *@
  
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>RentalContractID</th>
-            <th>OwnerCustomerID</th>
-            <th>TenantCustomerID</th>
-            <th>PropertyID</th>
+            <th>RentalRecordId</th>
+            <th>OwnerCustomerId</th>
+            <th>TenantCustomerId</th>
+            <th>PropertyId</th>
             <th>ContractTerms</th>
             <th>
                 @{ routes.SetSortAndDirection(
-                    nameof(RentalContract.RentalPrice), current); }
+                    nameof(RentalRecord.RentalPrice), current); }
                 <a asp-action="ListRentals" 
                     asp-all-route-data="@routes.ToDictionary()"
                     class="text-decoration-none">RentalPrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
@@ -39,7 +39,7 @@
             </th>
             <th>
                 @{ routes.SetSortAndDirection(
-                    nameof(RentalContract.DepositPrice), current); }
+                    nameof(RentalRecord.DepositPrice), current); }
                 <a asp-action="ListRentals" 
                     asp-all-route-data="@routes.ToDictionary()"
                     class="text-decoration-none">DepositPrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
@@ -47,14 +47,14 @@
             </th>
             <th>
                 @{ routes.SetSortAndDirection(
-                    nameof(RentalContract.StartDate), current); }
+                    nameof(RentalRecord.StartDate), current); }
                 <a asp-action="ListRentals" 
                     asp-all-route-data="@routes.ToDictionary()"
                     class="text-decoration-none">StartDate&nbsp;<i class="bi bi-arrows-vertical"></i></a>
             </th>
             <th>
                 @{ routes.SetSortAndDirection(
-                    nameof(RentalContract.EndDate), current); }
+                    nameof(RentalRecord.EndDate), current); }
                 <a asp-action="ListRentals" 
                     asp-all-route-data="@routes.ToDictionary()"
                     class="text-decoration-none">EndDate&nbsp;<i class="bi bi-arrows-vertical"></i></a>
@@ -64,13 +64,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var RentalContract in Model.RentalContracts)
+        @foreach (var RentalContract in Model.RentalRecords)
         {
             <tr>
-                <td>@RentalContract.RentalContractID</td>
-                <td>@RentalContract.OwnerCustomerID</td>
-                <td>@RentalContract.TenantCustomerID</td>
-                <td>@RentalContract.PropertyID</td>
+                <td>@RentalContract.RentalRecordId</td>
+                <td>@RentalContract.OwnerCustomerId</td>
+                <td>@RentalContract.TenantCustomerId</td>
+                <td>@RentalContract.PropertyId</td>
                 <td>@RentalContract.ContractTerms</td>
                 <td>@RentalContract.RentalPrice</td>
                 <td>@RentalContract.DepositPrice</td>
@@ -78,9 +78,9 @@
                 <td>@RentalContract.EndDate</td>
                 <td>@RentalContract.IsFinalized</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Book", new { id = RentalContract.RentalContractID })" class="btn btn-sm btn-info">Edit</a>
+                    <a href="@Url.Action("Edit", "Book", new { id = RentalContract.RentalRecordId })" class="btn btn-sm btn-info">Edit</a>
                     <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@RentalContract.RentalContractID" />
+                        <input type="hidden" name="id" value="@RentalContract.RentalRecordId" />
                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </td>

@@ -62,3 +62,15 @@ dotnet run
 ### finished
 - show image on frontend
 - Implement database paging on backend
+
+
+chanllenge record:
+
+Failed executing DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DROP TABLE "Customers";
+SQLite Error 19: 'FOREIGN KEY constraint failed'.
+
+commit draft: refacting customer table to inherit from IdentityUser; refacting table name 'contract' to 'record'; coloum name 'ID' to 'Id'
+
+接下来：多加点房产，待租待售都加10个，已租10个，已卖10个，已卖和已租都有记录。做演示省点空间能不能公用图片？
+存图片ID的那个问题怎么解决？

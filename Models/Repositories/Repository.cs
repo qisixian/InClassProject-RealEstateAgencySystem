@@ -52,8 +52,8 @@ namespace RealEstateAgencySystem.Models
             {
                 // if ordering by decimal, convert to double to avoid error with decimal ordering
                 bool isDecimalOrderBy = 
-                    (typeof(T) == typeof(SalesContract) && options.OrderByColumn == "SalePrice") ||
-                    (typeof(T) == typeof(RentalContract) && (options.OrderByColumn == "RentalPrice" || options.OrderByColumn == "DepositPrice"));
+                    (typeof(T) == typeof(SalesRecord) && options.OrderByColumn == "SalePrice") ||
+                    (typeof(T) == typeof(RentalRecord) && (options.OrderByColumn == "RentalPrice" || options.OrderByColumn == "DepositPrice"));
                     
                 if (isDecimalOrderBy)
                 {

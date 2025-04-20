@@ -5,7 +5,7 @@ namespace RealEstateAgencySystem.Models
     public class PropertyGridData : GridData
     {
         // set initial sort field in constructor
-        public PropertyGridData() => SortField = nameof(Property.PropertyID);
+        public PropertyGridData() => SortField = nameof(Property.PropertyId);
 
         public int PageSize { get; set; } = 20;
 

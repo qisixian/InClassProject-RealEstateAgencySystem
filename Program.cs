@@ -1,6 +1,7 @@
 using RealEstateAgencySystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using RealEstateAgencySystem;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddRazorPages();
 
-builder.Services.Configure<IdentityOptions>(options =>
+// builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//     .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddIdentity<Customer, IdentityRole>(options => 
 {
     // Password settings.
     options.Password.RequireDigit = true;
@@ -30,7 +34,10 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.AllowedUserNameCharacters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
-});
+    // options.SignIn.RequireConfirmedAccount = false;
+    // options.SignIn.RequireConfirmedEmail = false;
+}).AddEntityFrameworkStores<AppDbContext>()
+  .AddDefaultTokenProviders();  
  
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -43,7 +50,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
 // builder.Services.AddAuthentication().AddGoogle(options => 
 //     {
@@ -62,6 +68,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 //     });
 
 var app = builder.Build();
+
+// cheeck if seed data exists and seed data it if not
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedUser.CreateRolesAsync(services);
+    await SeedUser.SeedAdminUsersAsync(services);
+    await SeedData.SeedDataAsync(services);
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -5,10 +5,10 @@
     @foreach (var item in Model.Properties)
     {
         <div class="col-md-4 mb-4">
-            <a asp-controller="Property" asp-action="Detail" asp-route-id="@item.PropertyID">
+            <a asp-controller="Property" asp-action="Detail" asp-route-id="@item.PropertyId">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        @* <h5 class="card-title">Property ID: @item.PropertyID</h5> *@
+                        @* <h5 class="card-title">Property ID: @item.PropertyId</h5> *@
                             <img src="@Url.Action("Get", "Image", new { id = 9 })" 
                                     class="img-fluid rounded" 
                                     alt="Property image" 
@@ -22,8 +22,14 @@
                         <p class="card-text"><strong>Bathrooms:</strong> @item.Bathrooms</p>
                         <p class="card-text"><strong>Status:</strong> @item.CurrentStatus</p>
                         <p class="card-text"><strong>Listed On:</strong> @item.ListingDate.ToString("yyyy-MM-dd")</p>
-                        <p class="card-text"><strong>Rental Price:</strong> $@item.RentalPrice</p>
-                        <p class="card-text"><strong>Selling Price:</strong> @(item.SellingPrice.HasValue ? $"${item.SellingPrice}" : "N/A")</p>
+                        @if (item.RentalPrice.HasValue)
+                        {
+                            <p class="card-text"><strong>Rental Price:</strong> $@item.RentalPrice</p>
+                        }
+                        @if (item.SellingPrice.HasValue)
+                        {
+                            <p class="card-text"><strong>Selling Price:</strong> $@item.SellingPrice</p>
+                        }
                         @* <p class="card-text"><strong>Description:</strong> @item.Description</p> *@
                     </div>
                 </div>

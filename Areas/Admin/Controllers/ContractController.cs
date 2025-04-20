@@ -12,21 +12,21 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
         // private AppDbContext context;
         // public ContractController(AppDbContext ctx) => context = ctx;
 
-        private Repository<RentalContract> rentalData { get; set; }
-        private Repository<SalesContract> salesData { get; set; }
+        private Repository<RentalRecord> rentalData { get; set; }
+        private Repository<SalesRecord> salesData { get; set; }
 
         public ContractController(AppDbContext ctx)
         {
-            rentalData = new Repository<RentalContract>(ctx);
-            salesData = new Repository<SalesContract>(ctx);
+            rentalData = new Repository<RentalRecord>(ctx);
+            salesData = new Repository<SalesRecord>(ctx);
         }
 
         public RedirectToActionResult Index() => RedirectToAction("List");
 
-        public ViewResult ListSales(SalesContractGridData values)
+        public ViewResult ListSales(SalesRecordGridData values)
         {
-            // create options for querying SalesContract
-            var options = new QueryOptions<SalesContract>
+            // create options for querying SalesRecord
+            var options = new QueryOptions<SalesRecord>
             {
                 Includes = "OwnerCustomer, BuyerCustomer, Property",
                 OrderByDirection = values.SortDirection,
@@ -45,9 +45,9 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
             }
 
             // create view model
-            var vm = new SalesContractListViewModel
+            var vm = new SalesRecordListViewModel
             {
-                SalesContracts = salesData.List(options),
+                SalesRecords = salesData.List(options),
                 CurrentRoute = values,
                 TotalPages = values.GetTotalPages(salesData.Count)
             };
@@ -56,10 +56,10 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
         }
 
 
-        public ViewResult ListRentals(RentalContractGridData values)
+        public ViewResult ListRentals(RentalRecordGridData values)
         {
             // create options for querying RentalContract
-            var options = new QueryOptions<RentalContract>
+            var options = new QueryOptions<RentalRecord>
             {
                 Includes = "OwnerCustomer, TenantCustomer, Property",
                 OrderByDirection = values.SortDirection,
@@ -88,9 +88,9 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
             }
 
             // create view model
-            var vm = new RentalContractListViewModel
+            var vm = new RentalRecordListViewModel
             {
-                RentalContracts = rentalData.List(options),
+                RentalRecords = rentalData.List(options),
                 CurrentRoute = values,
                 TotalPages = values.GetTotalPages(rentalData.Count)
             };

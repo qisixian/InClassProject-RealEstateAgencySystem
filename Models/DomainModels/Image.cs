@@ -7,10 +7,10 @@ namespace RealEstateAgencySystem.Models
     public class Image
     {
         [Key]
-        public int ImageID { get; set; }
+        public int ImageId { get; set; }
         
         [Required]
-        public int PropertyID { get; set; }
+        public int PropertyId { get; set; }
         
         [Required]
         public byte[] ImageData { get; set; }
@@ -20,7 +20,7 @@ namespace RealEstateAgencySystem.Models
         public string ContentType { get; set; }
         
         // Navigation property to link back to the Property
-        [ForeignKey(nameof(PropertyID))]
+        [ForeignKey(nameof(PropertyId))]
         public Property Property { get; set; }
     }
 }

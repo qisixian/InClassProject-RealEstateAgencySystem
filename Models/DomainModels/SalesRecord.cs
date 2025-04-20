@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealEstateAgencySystem.Models
 {
-    public class SalesContract
+    public class SalesRecord
     {
         [Key]
-        public int SalesContractID { get; set; }
+        public int SalesRecordId { get; set; }
         
-        [Required(ErrorMessage = "Owner/Party A Customer ID is required")]
-        public int OwnerCustomerID { get; set; }
+        [Required(ErrorMessage = "Owner/Party A Customer Id is required")]
+        public string OwnerCustomerId { get; set; }
         
-        [Required(ErrorMessage = "Buyer/Party B Customer ID is required")]
-        public int BuyerCustomerID { get; set; }
+        [Required(ErrorMessage = "Buyer/Party B Customer Id is required")]
+        public string BuyerCustomerId { get; set; }
         
-        [Required(ErrorMessage = "Property ID is required")]
-        public int PropertyID { get; set; }
+        [Required(ErrorMessage = "Property Id is required")]
+        public int PropertyId { get; set; }
 
         [Required(ErrorMessage = "Contract terms is required")]
         [DataType(DataType.MultilineText)]
@@ -34,13 +34,13 @@ namespace RealEstateAgencySystem.Models
         public bool IsFinalized { get; set; } = false;
         
         // Navigation properties
-        [ForeignKey(nameof(OwnerCustomerID))]
+        [ForeignKey(nameof(OwnerCustomerId))]
         public Customer OwnerCustomer { get; set; }
         
-        [ForeignKey(nameof(BuyerCustomerID))]
+        [ForeignKey(nameof(BuyerCustomerId))]
         public Customer BuyerCustomer { get; set; }
         
-        [ForeignKey(nameof(PropertyID))]
+        [ForeignKey(nameof(PropertyId))]
         public Property Property { get; set; }
     }
 }
