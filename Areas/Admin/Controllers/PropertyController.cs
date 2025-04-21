@@ -8,7 +8,7 @@ using RealEstateAgencySystem.Areas.Admin.Views;
 
 namespace RealEstateAgencySystem.Areas.Admin.Controllers
 {
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class PropertyController : Controller
     {

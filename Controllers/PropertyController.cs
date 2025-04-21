@@ -49,7 +49,7 @@ namespace RealEstateAgencySystem.Controllers
             return View(vm);
         }
 
-
+        [Authorize]
         public IActionResult Detail(int id)
         {
             // create options for querying
