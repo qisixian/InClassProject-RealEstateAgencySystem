@@ -56,7 +56,6 @@ dotnet run
 
 ### todo
 new feature:
-add error handling to edit user profile
 add property post list
 add upload new property feature
 - add a new property / edit property page
@@ -64,6 +63,10 @@ add upload new property feature
 - - add a new property / edit property controller
 - add a delete property controller
 add owner infomation in property detail
+
+enhancement:
+add error handling to edit user profile
+fix bug when navigate to register user page
 
 optimization:
 - fetch ImageId but not image object in Property Detail action

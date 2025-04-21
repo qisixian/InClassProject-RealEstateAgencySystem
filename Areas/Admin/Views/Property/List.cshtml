@@ -132,12 +132,14 @@
                 <td>@Property.Description</td>
                 <td>@Property.OwnerCustomerId</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Book", new { id = Property.PropertyId })"
-                        class="btn btn-sm btn-info">Edit</a>
-                    <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@Property.PropertyId" />
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
+                    <div class="d-inline-flex align-items-center gap-1">
+                        <a href="@Url.Action("Edit", "Book", new { id = Property.PropertyId })"
+                            class="btn btn-sm btn-info">Edit</a>
+                        <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@Property.PropertyId" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         }

@@ -55,14 +55,14 @@ namespace RealEstateAgencySystem.Controllers
 
         public IActionResult Detail(int id)
         {
-            // create options for querying SalesContract
-            var options = new QueryOptions<Property>
-            {
-                Includes = "Images, PropertyAmenities",
-                // OrderByDirection = values.SortDirection,
-                // PageNumber = values.PageNumber,
-                // PageSize = values.PageSize
-            };
+            // create options for querying
+            // var options = new QueryOptions<Property>
+            // {
+            //     Includes = "PropertyAmenities",
+            //     OrderByDirection = values.SortDirection,
+            //     PageNumber = values.PageNumber,
+            //     PageSize = values.PageSize
+            // };
             
             var property = data.Get(id);
             if (property == null)
@@ -70,7 +70,8 @@ namespace RealEstateAgencySystem.Controllers
                 return NotFound();
             }
             property.PropertyAmenities = context.PropertyAmenities.FirstOrDefault(c => c.PropertyId == id);
-            property.Images = context.Images.Where(c => c.PropertyId == id).ToList();
+            property.ImageIds = context.Images.Where(c => c.PropertyId == id).Select(c => c.ImageId).ToList();
+            property.Owner = context.Customers.FirstOrDefault(c => c.Id == property.OwnerCustomerId);
 
             return View(property);
         }

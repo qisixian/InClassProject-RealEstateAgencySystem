@@ -1,38 +1,34 @@
 @model Property
-
 <div>
     <h2>Property Details</h2>
     <div>
         
-        <!-- 图片展示 -->
-        @if (Model.Images != null && Model.Images.Any())
-        {
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h4>Property Images</h4>
-                    <div class="row">
-                        @foreach (var image in Model.Images)
-                        {
-                            <div class="col-md-4 mb-3">
-                                <img src="@Url.Action("Get", "Image", new { id = image.ImageId })" 
-                                     class="img-fluid rounded" 
-                                     alt="Property image" 
-                                     style="width: 100%; height: 200px; object-fit: cover;">
-                            </div>
-                        }
-                    </div>
+        <!-- Images -->
+        <div class="row mb-4 mt-4">
+            <div class="col-12">
+                <h4>Property Images</h4>
+                <div class="row">
+                    @foreach (var ImageId in Model.ImageIds)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <img src="@Url.Action("Get", "Image", new { id = ImageId })"
+                                    class="img-fluid rounded" 
+                                    alt="Property image" 
+                                    style="width: 100%; height: 200px; object-fit: cover;">
+                        </div>
+                    }
                 </div>
             </div>
-        }
+        </div>
         
-        <!-- 描述 -->
+        <!-- Description -->
         <div class="row mb-4">
             <div class="col-12">
                 <h4>Description</h4>
                 <p>@Model.Description</p>
             </div>
         </div>
-        <!-- 基本信息 -->
+        <!-- Basic Information -->
         <div class="row mb-4">
             <div class="col-md-6">
                 <h4>Basic Information</h4>
@@ -58,10 +54,21 @@
                 <h4>Location</h4>
                 <p><strong>Address:</strong> @Model.PropertyAddress, @Model.City, @Model.Province, @Model.Country</p>
                 <p><strong>Postal Code:</strong> @Model.PostalCode</p>
+
+
+                <div class="mt-4">
+                    <h4>Contact Information</h4>
+                    @if (Model.Owner != null)
+                    {
+                        <p><strong>Owner Name:</strong> @Model.Owner.Name</p>
+                        <p><strong>Email:</strong> @Model.Owner.Email</p>
+                        <p><strong>Phone:</strong> @Model.Owner.PhoneNumber</p>
+                    }
+                </div>
             </div>
         </div>
         
-        <!-- 设施信息 -->
+        <!-- Property Amenities -->
         @if (Model.PropertyAmenities != null)
         {
             <div class="row mb-4">
@@ -113,18 +120,5 @@
             </div>
         }
         
-        <!-- 所有者信息 -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <h4>Owner Information</h4>
-                @if (Model.Owner != null)
-                {
-                    <p><strong>Owner ID:</strong> @Model.Owner.Id</p>
-                    <p><strong>Name:</strong> @Model.Owner.Name</p>
-                    <p><strong>Email:</strong> @Model.Owner.Email</p>
-                    <p><strong>Phone:</strong> @Model.Owner.PhoneNumber</p>
-                }
-            </div>
-        </div>
     </div>
 </div>

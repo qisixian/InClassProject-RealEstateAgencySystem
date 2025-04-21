@@ -63,11 +63,13 @@
                 <td>@SalesContract.TransactionDate</td>
                 <td>@SalesContract.IsFinalized</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Book", new { id = SalesContract.SalesRecordId })" class="btn btn-sm btn-info">Edit</a>
-                    <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@SalesContract.SalesRecordId" />
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
+                    <div class="d-inline-flex align-items-center gap-1">
+                        <a href="@Url.Action("Edit", "Book", new { id = SalesContract.SalesRecordId })" class="btn btn-sm btn-info">Edit</a>
+                        <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@SalesContract.SalesRecordId" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         }
