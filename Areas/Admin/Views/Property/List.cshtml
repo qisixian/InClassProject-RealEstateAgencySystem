@@ -128,11 +128,11 @@
                 <td>
                     <div class="d-inline-flex align-items-center gap-1">
                         <a href="@Url.Action("Edit", "Property", new { id = Property.PropertyId })"
-                            class="btn btn-sm btn-info">Edit</a>
+                            class="btn btn-sm btn-info"><i class="bi bi-pencil"></i>Edit</a>
                         <form asp-action="Delete" asp-controller="Property" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@Property.PropertyId" />
                             <input type="hidden" name="redirectTo" value="Admin" />
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i>Delete</button>
                         </form>
                     </div>
                 </td>

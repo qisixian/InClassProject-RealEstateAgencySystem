@@ -3,11 +3,108 @@
 @{
     ViewData["Title"] = "Your Properties";
     ViewData["ActivePage"] = ManageNavPages.YourProperties;
+
+    @* PropertyGridData current = Model.PropertyList.CurrentRoute;
+    GridData routes = Model.PropertyList.CurrentRoute.Clone(); *@
 }
 
-<h3>@ViewData["Title"]</h3>
+<h3>Your Listed Properties</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
 
 
-<li class="list-group-item">
-    <h5 class="mt-1"><a asp-area="Admin" asp-controller="Property" asp-action="Add">Add a Property</a></h5>
-</li>
+<a asp-area="Admin" asp-controller="Property" asp-action="Add" class="btn btn-primary mb-2">
+    <i class="bi bi-plus-circle"></i> Add New Property
+</a>
+
+
+@if (Model.PropertyList?.Properties?.Count() > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Address</th>
+                    <th>List Date</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var property in Model.PropertyList.Properties)
+                {
+                    <tr>
+                        <td>@property.PropertyType</td>
+                        <td>
+                            <strong>@property.PropertyAddress</strong><br />
+                            @property.City, @property.Province<br />
+                            @property.PostalCode
+                        </td>
+                        <td>@property.ListingDate</td>
+                        <td>
+                            <span class="@(property.CurrentStatus == "For Sale" ? "badge bg-primary" : 
+                                            property.CurrentStatus == "For Rent" ? "badge bg-success" :
+                                            property.CurrentStatus == "Sold" ? "badge bg-danger" : "badge bg-secondary")">
+                                @property.CurrentStatus
+                            </span>
+                        </td>
+                        <td>
+                            @if (property.CurrentStatus == "For Sale" || property.CurrentStatus == "Sold")
+                            {
+                                @Html.DisplayFor(modelItem => property.SellingPrice)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => property.RentalPrice) <small>per month</small>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a asp-area="Admin" asp-controller="Property" asp-action="Edit" asp-route-id="@property.PropertyId"
+                                    class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <form asp-area="Admin" asp-controller="Property" asp-action="Delete" method="post" 
+                                        onsubmit="return confirm('Are you sure you want to delete this property? This action cannot be undone.');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@property.PropertyId" />
+                                    <input type="hidden" name="redirectTo" value="YourProperties" />
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+    @* routes = current.Clone();
+
+    for (int i = 1; i <= Model.PropertyList.TotalPages; i++)
+    {
+        routes.PageNumber = i;
+        string active = @Nav.Active(i, current.PageNumber);
+        <a asp-page="/Identity/Account/Manage/YourProperties" asp-all-route-data="@routes.ToDictionary()" class="btn btn-outline-primary @active">@i</a>
+    } *@
+    
+}
+else
+{
+    <div class="alert alert-info">
+        <p class="mb-0">You don't have any properties listed yet.</p>
+    </div>
+    <div class="text-center mt-3">
+        <a asp-area="Admin" asp-controller="Property" asp-action="Add" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Add Your First Property
+        </a>
+    </div>
+}
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

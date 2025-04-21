@@ -12,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddScoped<Repository<Property>>();
+
 // builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //     .AddEntityFrameworkStores<AppDbContext>();
 
