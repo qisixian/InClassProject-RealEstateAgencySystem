@@ -79,7 +79,6 @@ namespace RealEstateAgencySystem.Models
                 .WithMany(p => p.RentalRecords)
                 .HasForeignKey(rc => rc.PropertyId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
         }
 
     }

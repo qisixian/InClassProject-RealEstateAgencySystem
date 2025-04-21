@@ -7,5 +7,6 @@ namespace RealEstateAgencySystem.Areas.Admin.Views
         public IEnumerable<Customer> Customers { get; set; } = new List<Customer>();
         public CustomerGridData CurrentRoute { get; set; } = new CustomerGridData();
         public int TotalPages { get; set; }
+        public List<string> AllRoles { get; set; } = new List<string>();
     }
 }

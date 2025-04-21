@@ -24,27 +24,89 @@
             <th>Province</th>
             <th>Country</th>
             <th>PostalCode</th>
-            <th>PropertyType</th>
-            <th>BuildYear</th>
-            <th>SizeOfHouse</th>
-            <th>Bedrooms</th>
-            <th>Bathrooms</th>
-            <th>CurrentStatus</th>
-            <th>ListingDate</th>
-            <th>RentalPrice</th>
-            <th>SellingPrice</th>
-            <th>Description</th>
-            <th>OwnerCustomerId</th>
-            @* <th>
+            <th>
                 @{
                     routes.SetSortAndDirection(
-                    nameof(RentalRecord.RentalPrice), current);
+                    nameof(Property.PropertyType), current);
                 }
-                <a asp-action="ListRentals" asp-all-route-data="@routes.ToDictionary()"
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">PropertyType&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.BuildYear), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">BuildYear&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.SizeOfHouse), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">SizeOfHouse&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.Bedrooms), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">Bedrooms&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.Bathrooms), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">Bathrooms&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.CurrentStatus), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">CurrentStatus&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.ListingDate), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">ListingDate&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.RentalPrice), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
                     class="text-decoration-none">RentalPrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
 
-            </th> *@
-            
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Property.SellingPrice), current);
+                }
+                <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+                    class="text-decoration-none">SellingPrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
+
+            </th>
+            <th>Description</th>
+            <th>OwnerCustomerId</th>
             <th>Actions</th>
         </tr>
     </thead>

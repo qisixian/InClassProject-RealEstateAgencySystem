@@ -32,15 +32,53 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
                 PageNumber = values.PageNumber,
                 PageSize = values.PageSize
             };
-            // if (values.IsSortBySalePrice)
-            // {
-            //     options.OrderBy = c => c.SalePrice;
-            //     options.OrderByColumn = "SalePrice";
-            // }
-            // else
-            // {
-            //     options.OrderBy = c => c.TransactionDate;
-            // }
+
+            // set the order by property
+            if (values.IsSortByPropertyType)
+            {
+                options.OrderBy = p => p.PropertyType;
+                options.OrderByColumn = nameof(Property.PropertyType);
+            }
+            else if (values.IsSortByBuildYear)
+            {
+                options.OrderBy = p => p.BuildYear;
+                options.OrderByColumn = nameof(Property.BuildYear);
+            }
+            else if (values.IsSortBySizeOfHouse)
+            {
+                options.OrderBy = p => p.SizeOfHouse;
+                options.OrderByColumn = nameof(Property.SizeOfHouse);
+            }
+            else if (values.IsSortByBedrooms)
+            {
+                options.OrderBy = p => p.Bedrooms;
+                options.OrderByColumn = nameof(Property.Bedrooms);
+            }
+            else if (values.IsSortByBathrooms)
+            {
+                options.OrderBy = p => p.Bathrooms;
+                options.OrderByColumn = nameof(Property.Bathrooms);
+            }
+            else if (values.IsSortByCurrentStatus)
+            {
+                options.OrderBy = p => p.CurrentStatus;
+                options.OrderByColumn = nameof(Property.CurrentStatus);
+            }
+            else if (values.IsSortByRentalPrice)
+            {
+                options.OrderBy = p => p.RentalPrice;
+                options.OrderByColumn = nameof(Property.RentalPrice);
+            }
+            else if (values.IsSortBySellingPrice)
+            {
+                options.OrderBy = p => p.SellingPrice;
+                options.OrderByColumn = nameof(Property.SellingPrice);
+            }
+            else // Default: IsSortByListingDate
+            {
+                options.OrderBy = p => p.ListingDate;
+                options.OrderByColumn = nameof(Property.ListingDate);
+            }
 
 
             // create view model

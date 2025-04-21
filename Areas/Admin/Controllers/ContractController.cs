@@ -41,7 +41,6 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
             else
             {
                 options.OrderBy = c => c.TransactionDate;
-                options.OrderByColumn = "TransactionDate";
             }
 
             // create view model

@@ -32,6 +32,7 @@
                     class="text-decoration-none">RentalPrice&nbsp;<i class="bi bi-arrows-vertical"></i></a>
 
             </th> *@
+            <th>Roles</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -46,12 +47,60 @@
                 <td>@User.ContactAddress</td>
                 <td>@User.PostalCode</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Book", new { id = User.Id })"
-                        class="btn btn-sm btn-info">Edit</a>
-                    <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@User.Id" />
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
+                    <div class="d-flex align-items-center flex-nowrap">
+                        @foreach (var role in User.RoleNames)
+                        {
+                            <span class="badge bg-primary me-1">@role</span>
+                        }
+        
+                        <!-- Add Role Dropdown Button -->
+                        <div class="dropdown ms-2">
+                            <button class="dropdown-item p-1 border-0 bg-transparent" type="button"
+                                    id="addRoleDropdown_@User.Id" data-bs-toggle="dropdown" 
+                                    aria-expanded="false" title="Add Role">
+                                <span class="badge bg-secondary me-1 align-top">Manage Roles</span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="addRoleDropdown_@User.Id">
+                                @foreach (var role in Model.AllRoles.Where(r => !User.RoleNames.Contains(r)))
+                                {
+                                    <li>
+                                        <form asp-area="Admin" asp-controller="User" asp-action="AddRole" method="post" class="dropdown-item p-0">
+                                            <input type="hidden" name="userId" value="@User.Id" />
+                                            <input type="hidden" name="roleName" value="@role" />
+                                            <button type="submit" class="dropdown-item p-1 border-0 bg-transparent">
+                                                <span class="badge bg-success me-1">Add Role:</span> 
+                                                <span class="badge bg-primary me-1">@role</span>
+                                            </button>
+                                        </form>
+                                    </li>
+                                }
+                                @foreach (var role in Model.AllRoles.Where(r => User.RoleNames.Contains(r)))
+                                {
+                                    <li>
+                                        <form asp-area="Admin" asp-controller="User" asp-action="RemoveRole" method="post"
+                                            class="dropdown-item p-0">
+                                            <input type="hidden" name="userId" value="@User.Id" />
+                                            <input type="hidden" name="roleName" value="@role" />
+                                            <button type="submit" class="dropdown-item p-1 border-0 bg-transparent">
+                                                <span class="badge bg-danger me-1">Remove Role:</span>
+                                                <span class="badge bg-primary me-1">@role</span>
+                                            </button>
+                                        </form>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-inline-flex align-items-center gap-1">
+                        <a href="@Url.Action("Edit", "Book", new { id = User.Id })"
+                            class="btn btn-sm btn-info">Edit</a>
+                        <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@User.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         }
