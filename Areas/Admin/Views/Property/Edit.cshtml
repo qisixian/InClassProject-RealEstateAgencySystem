@@ -1,0 +1,396 @@
+@model Property
+@{
+    Layout = "_Layout";
+    string title = ViewBag.Action + " Property";
+    string[] propertyTypes = ViewBag.PropertyTypes as string[] ?? Array.Empty<string>();
+    string[] statuses = ViewBag.Statuses as string[] ?? Array.Empty<string>();
+}
+
+<div>
+    <h2>@title</h2>
+
+    <form asp-action="@(ViewBag.Action == "Add" ? "Add" : "Edit")" asp-controller="Property" method="post"
+        enctype="multipart/form-data">
+        <input type="hidden" asp-for="PropertyId" />
+
+        <!-- Images Section -->
+        <div class="row mb-4 mt-4">
+            <div class="col-12">
+                <h4>Property Images</h4>
+
+                <!-- Existing Images -->
+                <div class="row mb-3">
+                    @if (Model.ImageIds != null && Model.ImageIds.Any())
+                    {
+                        foreach (var imageId in Model.ImageIds)
+                        {
+                            <div class="col-md-4 mb-3 position-relative">
+                                @* <div class="col-md-4 mb-3">
+                                    <img src="@Url.Action("Get", "Image", new { id = imageId })" class="img-fluid rounded"
+                                        alt="Property image" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div> *@
+                                <img src="@Url.Action("Get", "Image", new {area = "", id = imageId })" class="img-fluid rounded"
+                                    alt="Property image" style="width: 100%; height: 200px; object-fit: cover;">
+                                <div class="form-check position-absolute top-0 end-0 m-2">
+                                    <input class="form-check-input" type="checkbox" name="DeletedImageIds" value="@imageId"
+                                        id="delete-image-@imageId">
+                                    <label class="form-check-label bg-danger text-white px-2 rounded"
+                                        for="delete-image-@imageId">
+                                        Delete
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <p class="text-muted">Upload photos to showcase your property and attract more buyers or renters.</p>
+                        </div>
+                    }
+                </div>
+
+                <!-- Upload New Images -->
+                <div class="mb-3">
+                    <label for="newImages" class="form-label">Upload New Images</label>
+                    <input class="form-control" type="file" id="newImages" name="NewImages" multiple accept="image/*">
+                    <div class="form-text">You can select multiple image files to upload.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Description</h4>
+                <div class="mb-3">
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basic Information -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h4>Basic Information</h4>
+
+                <div class="mb-3 row">
+                    <label asp-for="PropertyType" class="col-sm-4 col-form-label fw-bold">Property Type:</label>
+                    <div class="col-sm-8">
+                        <select asp-for="PropertyType" class="form-select">
+                            @foreach (var type in propertyTypes)
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                        <span asp-validation-for="PropertyType" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="BuildYear" class="col-sm-4 col-form-label fw-bold">Build Year:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="BuildYear" class="form-control"
+                            value="@(Model.BuildYear == 0 ? 2000 : Model.BuildYear)" />
+                        <span asp-validation-for="BuildYear" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="SizeOfHouse" class="col-sm-4 col-form-label fw-bold">Size (sq ft):</label>
+                    <div class="col-sm-8">
+                        <input asp-for="SizeOfHouse" class="form-control" />
+                        <span asp-validation-for="SizeOfHouse" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="Bedrooms" class="col-sm-4 col-form-label fw-bold">Number of Bedrooms:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="Bedrooms" class="form-control" />
+                        <span asp-validation-for="Bedrooms" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="Bathrooms" class="col-sm-4 col-form-label fw-bold">Number of Bathrooms:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="Bathrooms" class="form-control" />
+                        <span asp-validation-for="Bathrooms" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="CurrentStatus" class="col-sm-4 col-form-label fw-bold">Current Status:</label>
+                    <div class="col-sm-8">
+                        <select asp-for="CurrentStatus" class="form-select">
+                            @foreach (var status in statuses)
+                            {
+                                <option value="@status">@status</option>
+                            }
+                        </select>
+                        <span asp-validation-for="CurrentStatus" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="ListingDate" class="col-sm-4 col-form-label fw-bold">Listing Date:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="ListingDate" class="form-control" type="date" />
+                        <span asp-validation-for="ListingDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="RentalPrice" class="col-sm-4 col-form-label fw-bold">Rental Price:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input asp-for="RentalPrice" class="form-control" />
+                        </div>
+                        <span asp-validation-for="RentalPrice" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="SellingPrice" class="col-sm-4 col-form-label fw-bold">Selling Price:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input asp-for="SellingPrice" class="form-control" />
+                        </div>
+                        <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Location</h4>
+
+                <div class="mb-3 row">
+                    <label asp-for="Country" class="col-sm-4 col-form-label fw-bold">Country:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="Country" class="form-control" />
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="Province" class="col-sm-4 col-form-label fw-bold">Province/State:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="Province" class="form-control" />
+                        <span asp-validation-for="Province" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="City" class="col-sm-4 col-form-label fw-bold">City:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="PropertyAddress" class="col-sm-4 col-form-label fw-bold">Address:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="PropertyAddress" class="form-control" />
+                        <span asp-validation-for="PropertyAddress" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="PostalCode" class="col-sm-4 col-form-label fw-bold">Postal Code:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="PostalCode" class="form-control" />
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h4>Owner Information</h4>
+                    @if (Model.Owner != null)
+                    {
+                        <input type="hidden" asp-for="OwnerCustomerId" />
+                        <p><strong>Owner Name:</strong> @Model.Owner.Name</p>
+                        <p><strong>Email:</strong> @Model.Owner.Email</p>
+                        <p><strong>Phone:</strong> @Model.Owner.PhoneNumber</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Amenities -->
+        @if (Model.PropertyAmenities != null)
+        {
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4>Amenities</h4>
+
+                    <!-- Hidden field for submit -->
+                    <input type="hidden" name="PropertyAmenities.PropertyId" value="@Model.PropertyId" />
+                    <input type="hidden" name="PropertyAmenities.PropertyAmenitiesId"
+                        value="@Model.PropertyAmenities.PropertyAmenitiesId" />
+                    <p> debug: PropertyAmenitiesId = @Model.PropertyAmenities.PropertyAmenitiesId</p>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Elevator" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Elevator">Elevator</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Refrigerator" />
+                                <label class="form-check-label"
+                                    asp-for="PropertyAmenities.Refrigerator">Refrigerator</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Cooktop" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Cooktop">Cooktop</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Microwave" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Microwave">Microwave</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Dishwasher" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Dishwasher">Dishwasher</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input"
+                                    asp-for="PropertyAmenities.FireSprinklerSystem" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.FireSprinklerSystem">Fire
+                                    Sprinkler System</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Washer" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Washer">Washer</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Dryer" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Dryer">Dryer</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Heating" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Heating">Heating</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input"
+                                    asp-for="PropertyAmenities.AirConditioning" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.AirConditioning">Air
+                                    Conditioning</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input"
+                                    asp-for="PropertyAmenities.SecuritySystem" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.SecuritySystem">Security
+                                    System</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.PetFriendly" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.PetFriendly">Pet Friendly</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.FitnessRoom" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.FitnessRoom">Fitness Room</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.SwimmingPool" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.SwimmingPool">Swimming
+                                    Pool</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.ParkingLot" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.ParkingLot">Parking Lot</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="PropertyAmenities.Locker" />
+                                <label class="form-check-label" asp-for="PropertyAmenities.Locker">Locker</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PropertyAmenities.OtherAmenities" class="form-label">Other Amenities</label>
+                        <textarea asp-for="PropertyAmenities.OtherAmenities" class="form-control" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Submit Buttons -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    @(ViewBag.Action == "Add" ? "Add Property" : "Save Changes")
+                </button>
+                <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@Model.PropertyId"
+                    class="btn btn-secondary">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Preview uploaded images before form submission
+        document.getElementById('newImages').addEventListener('change', function (event) {
+            const files = event.target.files;
+            const previewContainer = document.createElement('div');
+            previewContainer.className = 'row mt-3';
+
+            // Clear previous previews
+            const existingPreview = document.querySelector('.preview-container');
+            if (existingPreview) {
+                existingPreview.remove();
+            }
+
+            previewContainer.classList.add('preview-container');
+
+            // Create preview for each file
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                // Only process image files
+                if (!file.type.match('image.*')) {
+                    continue;
+                }
+
+                const reader = new FileReader();
+                const previewCol = document.createElement('div');
+                previewCol.className = 'col-md-4 mb-3';
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-fluid rounded';
+                    img.alt = 'Image preview';
+                    img.style = 'width: 100%; height: 200px; object-fit: cover;';
+
+                    previewCol.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+                previewContainer.appendChild(previewCol);
+            }
+
+            // Add preview container after the file input
+            if (previewContainer.children.length > 0) {
+                this.parentNode.after(previewContainer);
+            }
+        });
+    </script>
+}

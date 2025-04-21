@@ -7,9 +7,6 @@ namespace RealEstateAgencySystem.Controllers
 {
     public class PropertyController : Controller
     {
-        // private AppDbContext context;
-        // public ContractController(AppDbContext ctx) => context = ctx;
-
         private AppDbContext context;
         private Repository<Property> data { get; set; }
 

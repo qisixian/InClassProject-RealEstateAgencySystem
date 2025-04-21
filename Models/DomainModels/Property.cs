@@ -46,12 +46,12 @@ namespace RealEstateAgencySystem.Models
         public double SizeOfHouse { get; set; }
         
         [Required(ErrorMessage = "Number of bedrooms is required")]
-        [Range(1, 30, ErrorMessage = "Please enter a valid number of bedrooms")]
+        [Range(0, 30, ErrorMessage = "Please enter a valid number of bedrooms")]
         [Display(Name = "Number of Bedrooms")]
         public int Bedrooms { get; set; }
 
         [Required(ErrorMessage = "Number of bathrooms is required")]
-        [Range(1, 30, ErrorMessage = "Please enter a valid number of bathrooms")]
+        [Range(0, 30, ErrorMessage = "Please enter a valid number of bathrooms")]
         [Display(Name = "Number of Bathrooms")]
         public int Bathrooms { get; set; }
         

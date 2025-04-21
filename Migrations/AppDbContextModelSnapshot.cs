@@ -364,7 +364,6 @@ namespace RealEstateAgencySystem.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("OtherAmenities")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("ParkingLot")
@@ -637,8 +636,7 @@ namespace RealEstateAgencySystem.Migrations
                 {
                     b.Navigation("Images");
 
-                    b.Navigation("PropertyAmenities")
-                        .IsRequired();
+                    b.Navigation("PropertyAmenities");
 
                     b.Navigation("RentalRecords");
 

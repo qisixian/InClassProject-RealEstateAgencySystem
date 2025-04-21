@@ -52,7 +52,7 @@ namespace RealEstateAgencySystem.Models
         
         [DataType(DataType.MultilineText)]
         [Display(Name = "Other Amenities")]
-        public string OtherAmenities { get; set; } = string.Empty;
+        public string? OtherAmenities { get; set; } = string.Empty;
         
         // Navigation property
         [ForeignKey(nameof(PropertyId))]

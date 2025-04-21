@@ -9,12 +9,6 @@
 
 <h1 class="mb-2">Manage Properties</h1>
 
-
-<li class="list-group-item">
-    <h5 class="mt-1"><a asp-action="Add">Add a Property</a></h5>
-</li>
-
-
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -133,10 +127,11 @@
                 <td>@Property.OwnerCustomerId</td>
                 <td>
                     <div class="d-inline-flex align-items-center gap-1">
-                        <a href="@Url.Action("Edit", "Book", new { id = Property.PropertyId })"
+                        <a href="@Url.Action("Edit", "Property", new { id = Property.PropertyId })"
                             class="btn btn-sm btn-info">Edit</a>
-                        <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
+                        <form asp-action="Delete" asp-controller="Property" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@Property.PropertyId" />
+                            <input type="hidden" name="redirectTo" value="Admin" />
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                         </form>
                     </div>
