@@ -56,8 +56,9 @@ dotnet run
 
 ### todo
 new feature:
-support register user
-support role controll
+- support register user
+- support role controll
+- support search properties
 
 enhancement:
 add error handling to edit user profile

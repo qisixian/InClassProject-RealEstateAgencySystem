@@ -331,8 +331,16 @@
                 <button type="submit" class="btn btn-primary">
                     @(ViewBag.Action == "Add" ? "Add Property" : "Save Changes")
                 </button>
-                <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@Model.PropertyId"
-                    class="btn btn-secondary">Cancel</a>
+                @if (ViewBag.Action == "Add")
+                {
+                    <a asp-area="Identity" asp-page="/Account/Manage/YourProperties"
+                        class="btn btn-secondary">Cancel</a>
+                } 
+                else
+                {
+                    <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@Model.PropertyId"
+                        class="btn btn-secondary">Cancel</a>
+                }
             </div>
         </div>
     </form>

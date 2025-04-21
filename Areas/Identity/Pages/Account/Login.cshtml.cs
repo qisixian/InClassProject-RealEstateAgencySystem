@@ -129,6 +129,7 @@ namespace RealEstateAgencySystem.Areas.Identity.Pages.Account
                 }
                 else
                 {
+                    Console.WriteLine("Invalid login attempt. result: " + result.ToString());
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }

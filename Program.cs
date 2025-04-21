@@ -1,6 +1,8 @@
 using RealEstateAgencySystem.Models;
+using RealEstateAgencySystem.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using RealEstateAgencySystem;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddScoped<Repository<Property>>();
 
 // builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //     .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddIdentity<Customer, IdentityRole>(options => 
 {
@@ -36,7 +40,7 @@ builder.Services.AddIdentity<Customer, IdentityRole>(options =>
     options.User.AllowedUserNameCharacters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
-    // options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedAccount = false;
     // options.SignIn.RequireConfirmedEmail = false;
 }).AddEntityFrameworkStores<AppDbContext>()
   .AddDefaultTokenProviders();  
