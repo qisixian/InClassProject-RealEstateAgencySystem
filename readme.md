@@ -56,13 +56,8 @@ dotnet run
 
 ### todo
 new feature:
-add property post list
-add upload new property feature
-- add a new property / edit property page
-- - add a edit property page
-- - add a new property / edit property controller
-- add a delete property controller
-add owner infomation in property detail
+support register user
+support role controll
 
 enhancement:
 add error handling to edit user profile
@@ -76,10 +71,16 @@ optimization:
 - show image on frontend
 - Implement database paging on backend
 - merge customer table and AspNetUser table
-
+- support adding, editing, and deleting properties
+- manage properties on the user page
 
 chanllenge record:
 
 Failed executing DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 DROP TABLE "Customers";
 SQLite Error 19: 'FOREIGN KEY constraint failed'.
+
+
+image generation token:
+你能帮我生成尺寸为1920 × 1080 像素的图片吗？
+我希望的图片是轻奢 风格的，用途是网页背景，有低调金色点缀和隐隐的大理石纹样，视觉元素在图片中松散的分布，不需要包含任何文字，尺寸为1920 × 1080 像素

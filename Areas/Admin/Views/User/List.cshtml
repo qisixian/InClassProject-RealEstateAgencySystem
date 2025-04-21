@@ -55,10 +55,10 @@
         
                         <!-- Add Role Dropdown Button -->
                         <div class="dropdown ms-2">
-                            <button class="dropdown-item p-1 border-0 bg-transparent" type="button"
+                            <button class="dropdown-toggle btn btn-sm btn-info" type="button"
                                     id="addRoleDropdown_@User.Id" data-bs-toggle="dropdown" 
                                     aria-expanded="false" title="Add Role">
-                                <span class="badge bg-secondary me-1 align-top">Manage Roles</span>
+                                <i class="bi bi-pencil"></i> Manage Roles
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="addRoleDropdown_@User.Id">
                                 @foreach (var role in Model.AllRoles.Where(r => !User.RoleNames.Contains(r)))

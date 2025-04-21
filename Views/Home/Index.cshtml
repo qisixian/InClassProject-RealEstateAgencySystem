@@ -2,7 +2,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <img src="@Url.Action("Get", "Image", new { id = 2 })" width="800" />
+<div class="text-center"
+    style="position: relative; background-image: url('/image.png'); background-size: cover; background-position: center;  width: 100%; height: 100vh; overflow: hidden;">
+    <h1 class="display-4"
+        style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); padding: 10px; border-radius: 5px;">
+        S&A Agent
+    </h1>
+    <h4 style="position: absolute; top: 48%; left: 50%; transform: translate(-50%, -50%); padding: 10px;">
+        Your Reliable Partner in Every Property Journey.
+    </h4>
+    <a asp-controller="Property" asp-action="List" class="btn btn-primary"
+        style="position: absolute; top: 56%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; font-size: 18px;">
+        Explore
+    </a>
 </div>
