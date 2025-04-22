@@ -45,6 +45,18 @@ dotnet run
 
 ### todo
 new feature:
+global searching
+denpendency injection
+i18n
+exception handling
+logging
+move to docker
+CI/CD
+log monitering
+metrix monitering
+
+fix:
+make paging works well when filtering
 
 enhancement:
 
