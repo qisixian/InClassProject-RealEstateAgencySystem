@@ -56,9 +56,7 @@ dotnet run
 
 ### todo
 new feature:
-- support register user
-- support role controll
-- support search properties
+
 
 enhancement:
 add error handling to edit user profile
@@ -74,6 +72,9 @@ optimization:
 - merge customer table and AspNetUser table
 - support adding, editing, and deleting properties
 - manage properties on the user page
+- support register user
+- support role controll
+- support search properties
 
 chanllenge record:
 

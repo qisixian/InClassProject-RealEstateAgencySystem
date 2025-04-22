@@ -8,7 +8,7 @@ using RealEstateAgencySystem.Areas.Admin.Views;
 
 namespace RealEstateAgencySystem.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [Area("Admin")]
     public class PropertyController : Controller
     {
@@ -27,6 +27,7 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
         public RedirectToActionResult Index() => RedirectToAction("List");
 
 
+        [Authorize(Roles = "Admin")]
         public ViewResult List(PropertyGridData values)
         {
             // create options for querying
@@ -97,7 +98,7 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
 
 
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             // create options for querying
             // var options = new QueryOptions<Property>
@@ -108,17 +109,24 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
             //     PageSize = values.PageSize
             // };
 
+            var property = data.Get(id);
+            if (property == null)
+            {
+                return NotFound();
+            }
+
+            // 检查当前用户是否是 Property 的所有者，或者是 Admin 权限
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (property.OwnerCustomerId != currentUser.Id && !User.IsInRole("Admin"))
+            {
+                return Forbid(); // 返回 403 Forbidden
+            }
 
             ViewBag.Action = "Edit";
             ViewBag.PropertyTypes = new string[] { "House", "Apartment", "Condo", "Townhouse", "Basement Suite", "Duplex" };
             ViewBag.Statuses = new string[] { "For Sale", "For Rent", "Sold", "Rented" };
 
 
-            var property = data.Get(id);
-            if (property == null)
-            {
-                return NotFound();
-            }
             property.PropertyAmenities = context.PropertyAmenities.FirstOrDefault(c => c.PropertyId == id);
             property.ImageIds = context.Images.Where(c => c.PropertyId == id).Select(c => c.ImageId).ToList();
             property.Owner = context.Customers.FirstOrDefault(c => c.Id == property.OwnerCustomerId);
@@ -151,6 +159,14 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Property property, List<IFormFile> newImages, int[] deletedImageIds)
         {
+
+            // 检查当前用户是否是 Property 的所有者，或者是 Admin 权限
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (property.OwnerCustomerId != currentUser.Id && !User.IsInRole("Admin"))
+            {
+                return Forbid(); // 返回 403 Forbidden
+            }
+
             if (!ModelState.IsValid)
             {
                 // 重新加载必要数据
@@ -328,6 +344,7 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id, string redirectTo)
         {
+
             // 查找要删除的 Property
             var property = data.Get(id);
 
@@ -338,6 +355,13 @@ namespace RealEstateAgencySystem.Areas.Admin.Controllers
                     return RedirectToAction("List");
                 else
                     return RedirectToPage("/Account/Manage/YourProperties", new { area = "Identity" });
+            }
+
+            // 检查当前用户是否是 Property 的所有者，或者是 Admin 权限
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (property.OwnerCustomerId != currentUser.Id && !User.IsInRole("Admin"))
+            {
+                return Forbid(); // 返回 403 Forbidden
             }
 
             using (var transaction = await context.Database.BeginTransactionAsync())

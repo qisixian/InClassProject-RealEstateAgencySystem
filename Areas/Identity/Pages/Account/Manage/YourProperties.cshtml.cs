@@ -79,7 +79,7 @@ namespace RealEstateAgencySystem.Areas.Identity.Pages.Account.Manage
             };
 
             // 添加筛选条件 - 只加载当前用户的属性
-            options.Where = p => p.OwnerCustomerId == user.Id;
+            options.Wheres.Add(p => p.OwnerCustomerId == user.Id);
 
             // 设置排序方式
             options.OrderBy = p => p.ListingDate;

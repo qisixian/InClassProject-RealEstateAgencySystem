@@ -8,7 +8,7 @@
         public int PageSize { get; set; } = 5;
         public string SortDirection { get; set; } = "asc";
         public string SortField { get; set; } = string.Empty;
-
+        
         // general purpose methods for paging and sorting
         public int GetTotalPages(int count) => (count + PageSize - 1) / PageSize;
 

@@ -41,8 +41,11 @@ namespace RealEstateAgencySystem.Models
                 query = query.Include(include);
             }
             if (options.HasWhere)
-            {
-                query = query.Where(options.Where);
+            {   
+                foreach (var where in options.Wheres)
+                {
+                    query = query.Where(where);
+                }
             }
             // if (options.HasSelecter)
             // {

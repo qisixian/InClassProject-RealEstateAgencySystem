@@ -1,4 +1,6 @@
 ﻿using System.Text.Json.Serialization;
+using System.Linq.Expressions;
+using RealEstateAgencySystem.Models;
 
 namespace RealEstateAgencySystem.Models
 {
@@ -6,6 +8,8 @@ namespace RealEstateAgencySystem.Models
     {
         // set initial sort field in constructor
         public PropertyGridData() => SortField = nameof(Property.ListingDate);
+
+        public PropertyFilters Filters { get; set; } = new PropertyFilters();
 
         // sort flags
         [JsonIgnore]

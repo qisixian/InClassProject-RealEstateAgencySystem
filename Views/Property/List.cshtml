@@ -1,5 +1,283 @@
 @model PropertyListViewModel
 
+@{
+    PropertyGridData current = Model.CurrentRoute;
+    PropertyFilters filters = Model.CurrentRoute.Filters;
+    GridData routes = Model.CurrentRoute.Clone();
+}
+
+@* <form method="get" asp-action="List">
+    <div id="status">
+    <label>Status:</label>
+    @if (ViewBag.Statuses != null)
+    {
+        foreach (var status in ViewBag.Statuses as string[])
+        {
+            <div>
+                <input type="checkbox" id="status-For @status" name="Filters[CurrentStatus]" value="For @status" checked />
+                <label for="status-For @status">@status</label>
+            </div>
+    }
+}
+</div>
+</form> *@
+<form method="get" asp-action="List" class="row row-cols-lg-auto g-2 align-items-end mb-3">
+    @* <div class="col-auto">
+        <label class="form-label" for="maxPrice">Max Rental Price</label>
+        <input type="number" class="form-control" id="maxPrice" name="Filters[MaxRentalPrice]"
+            value="@(current.Filters.ContainsKey("MaxRentalPrice") ? current.Filters["MaxRentalPrice"][0] : "")" />
+    </div> *@
+
+
+
+    @* Statuses Filter *@
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Statuses
+            </button>
+            <div class="dropdown-menu p-3">
+                @foreach (var status in filters.statuses)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="status-@status" name="Filters.filteredStatuses"
+                            value="@status" @(filters.filteredStatuses.Contains(status) ? "checked" : "") />
+                        <label class="form-check-label" for="status-@status">@status</label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @* Property Types Filter *@
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                propertyTypes
+            </button>
+            <div class="dropdown-menu p-3">
+                @foreach (var propertyType in filters.propertyTypes)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="propertyType-@propertyType"
+                            name="Filters.filteredPropertyTypes" value="@propertyType"
+                            @(filters.filteredPropertyTypes.Contains(propertyType) ? "checked" : "") />
+                        <label class="form-check-label" for="propertyType-@propertyType">@propertyType</label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <label for="propertyAddress">Property Address</label>
+        <input type="text" class="form-control" id="propertyAddress" name="Filters.PropertyAddress"
+            value="@filters.PropertyAddress" />
+    </div>
+
+    @* Cities Filter *@
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                cities
+            </button>
+            <div class="dropdown-menu p-3">
+                @foreach (var city in filters.cities)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="city-@city" name="Filters.filteredCities"
+                            value="@city" @(filters.filteredCities.Contains(city) ? "checked" : "") />
+                        <label class="form-check-label" for="city-@city" style="white-space: nowrap;">@city</label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @* Provinces Filter *@
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                provinces
+            </button>
+            <div class="dropdown-menu p-3">
+                @foreach (var province in filters.provinces)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="province-@province"
+                            name="Filters.filteredProvinces" value="@province"
+                            @(filters.filteredProvinces.Contains(province) ? "checked" : "") />
+                        <label class="form-check-label" for="province-@province">@province</label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @* Countries Filter *@
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                countries
+            </button>
+            <div class="dropdown-menu p-3">
+                @foreach (var country in filters.countries)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="country-@country" name="Filters.filteredCountries" value="@country" @(filters.filteredCountries.Contains(country) ? "checked" : "") />
+                        <label class="form-check-label" for="country-@country">@country</label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <label for="postalCode">Postal Code</label>
+        <input type="text" class="form-control" id="postalCode" name="Filters.PostalCode" value="@filters.PostalCode"
+            style="width: 120px;" />
+    </div>
+
+
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Rental Price
+            </button>
+            <div class="dropdown-menu p-3">
+                <div class="form-group mb-2">
+                    <label for="minRentalPrice">Min Rental Price</label>
+                    <input type="number" class="form-control" id="minRentalPrice" name="Filters.MinRentalPrice"
+                        value="@filters.MinRentalPrice" style="width: 100px;" />
+                </div>
+
+                <div class="form-group">
+                    <label for="maxPrice">Max Rental Price</label>
+                    <input type="number" class="form-control" id="maxPrice" name="Filters.MaxRentalPrice"
+                        value="@filters.MaxRentalPrice" style="width: 100px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Selling Price
+            </button>
+            <div class="dropdown-menu p-3">
+                <div class="form-group mb-2">
+                    <label for="minSellingPrice">Min Selling Price</label>
+                    <input type="number" class="form-control" id="minSellingPrice" name="Filters.MinSellingPrice"
+                        value="@filters.MinSellingPrice" style="width: 100px;" />
+                </div>
+                <div class="form-group">
+                    <label for="maxSellingPrice">Max Selling Price</label>
+                    <input type="number" class="form-control" id="maxSellingPrice" name="Filters.MaxSellingPrice"
+                        value="@filters.MaxSellingPrice" style="width: 100px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Size (sq ft)
+            </button>
+            <div class="dropdown-menu p-3">
+                <div class="form-group mb-2">
+                    <label for="minSize">Min Size</label>
+                    <input type="number" class="form-control" id="minSize" name="Filters.MinSize"
+                        value="@filters.MinSize" style="width: 100px;" />
+                </div>
+                <div class="form-group">
+                    <label for="maxSize">Max Size</label>
+                    <input type="number" class="form-control" id="maxSize" name="Filters.MaxSize"
+                        value="@filters.MaxSize" style="width: 100px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Build Year
+            </button>
+            <div class="dropdown-menu p-3">
+                <div class="form-group mb-2">
+                    <label for="minBuildYear">Min Build Year</label>
+                    <input type="number" class="form-control" id="minBuildYear" name="Filters.MinBuildYear"
+                        value="@filters.MinBuildYear" style="width: 100px;" />
+                </div>
+                <div class="form-group">
+                    <label for="maxBuildYear">Max Build Year</label>
+                    <input type="number" class="form-control" id="maxBuildYear" name="Filters.MaxBuildYear"
+                        value="@filters.MaxBuildYear" style="width: 100px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Bedrooms
+            </button>
+            <div class="dropdown-menu p-3">
+                <div class="form-group mb-2">
+                    <label for="minBedrooms">Min Bedrooms</label>
+                    <input type="number" class="form-control" id="minBedrooms" name="Filters.MinBedrooms"
+                        value="@filters.MinBedrooms" style="width: 100px;" />
+                </div>
+                <div class="form-group">
+                    <label for="maxBedrooms">Max Bedrooms</label>
+                    <input type="number" class="form-control" id="maxBedrooms" name="Filters.MaxBedrooms"
+                        value="@filters.MaxBedrooms" style="width: 100px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Bathrooms
+            </button>
+            <div class="dropdown-menu p-3">
+                <div class="form-group mb-2">
+                    <label for="minBathrooms">Min Bathrooms</label>
+                    <input type="number" class="form-control" id="minBathrooms" name="Filters.MinBathrooms"
+                        value="@filters.MinBathrooms" style="width: 100px;" />
+                </div>
+                <div class="form-group">
+                    <label for="maxBathrooms">Max Bathrooms</label>
+                    <input type="number" class="form-control" id="maxBathrooms" name="Filters.MaxBathrooms"
+                        value="@filters.MaxBathrooms" style="width: 100px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mt-4">Filter</button>
+    </div>
+    <div class="col-auto">
+        <a class="btn btn-secondary mt-4" asp-action="List">Clear</a>
+    </div>
+</form>
 
 <div class="row">
     @foreach (var item in Model.Properties)
@@ -38,3 +316,17 @@
         </div>
     }
 </div>
+
+@* paging links *@
+@{
+    @* Reset to the current route values. This is necessary to clear the changes made while 
+        creating the sorting links above. *@
+    routes = current.Clone();
+
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        routes.PageNumber = i;
+        string active = @Nav.Active(i, current.PageNumber);
+        <a asp-action="List" asp-all-route-data="@routes.ToDictionary()" class="btn btn-outline-primary @active">@i</a>
+    }
+}
