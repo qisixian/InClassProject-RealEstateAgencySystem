@@ -19,6 +19,29 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-image: url('/Background_unsplash.jpg'); /* 图片路径根据你的项目而定 */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* 首页大标题专用字体 */
+.hero-title {
+  font-family: 'Lora', serif;
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+/* 首页副标题样式 */
+.hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #444;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -30,6 +53,9 @@ body {
   text-align: start;
 }
 
+.navbar {
+  background-color:#f2f2f2 !important; /* 浅灰色背景 */
+}
 /* AI Helper Popup Box Styles */
 .ai-helper-box {
   position: fixed;
