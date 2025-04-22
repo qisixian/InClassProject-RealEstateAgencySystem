@@ -1,0 +1,123 @@
+@model SalesRecord
+
+@{
+    Layout = "_Layout";
+    string title = ViewBag.Action + " Sales Record";
+    List<Customer> users = ViewBag.Users;
+    List<Property> properties = ViewBag.Properties;
+}
+
+<div>
+    <h2>@title</h2>
+
+    <form asp-action="@(ViewBag.Action == "Add" ? "AddSalesRecord" : "EditSalesRecord")" asp-controller="Contract"
+        method="post">
+        <input type="hidden" asp-for="SalesRecordId" />
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Contract Terms</h4>
+                <div class="mb-3">
+                    <textarea asp-for="ContractTerms" class="form-control" rows="3">
+                        @Model.ContractTerms ?? ViewBag.defaultSalesContractTerm
+                    </textarea>
+                    <span asp-validation-for="ContractTerms" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h4>Sales Information</h4>
+
+                <div class="mb-3 row">
+                    <label asp-for="SalePrice" class="col-sm-4 col-form-label fw-bold">Sale Price:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="SalePrice" class="form-control" />
+                        <span asp-validation-for="SalePrice" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="TransactionDate" class="col-sm-4 col-form-label fw-bold">Transaction Date:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="TransactionDate" class="form-control" type="date" />
+                        <span asp-validation-for="TransactionDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="IsFinalized" class="col-sm-4 col-form-label fw-bold">Is Finalized:</label>
+                    <div class="col-sm-8">
+                        <input asp-for="IsFinalized" type="checkbox" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Customer Information</h4>
+
+                <div class="mb-3 row">
+                    <label asp-for="OwnerCustomerId" class="col-sm-4 col-form-label fw-bold">Owner Customer:</label>
+                    <div class="col-sm-8">
+                        <select asp-for="OwnerCustomerId" class="form-select">
+                            <option value="">-- Select Owner Customer --</option>
+                            @foreach (var user in users)
+                            {
+                                <option value="@user.Id">@user.Email (@user.Name)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="OwnerCustomerId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="BuyerCustomerId" class="col-sm-4 col-form-label fw-bold">Buyer Customer:</label>
+                    <div class="col-sm-8">
+                        <select asp-for="BuyerCustomerId" class="form-select">
+                            <option value="">-- Select Buyer Customer --</option>
+                            @foreach (var user in users)
+                            {
+                                <option value="@user.Id">@user.Email (@user.Name)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="BuyerCustomerId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label asp-for="PropertyId" class="col-sm-4 col-form-label fw-bold">Property:</label>
+                    <div class="col-sm-8">
+                        <select asp-for="PropertyId" class="form-select">
+                            <option value="">-- Select Property --</option>
+                            @foreach (var property in properties)
+                            {
+                                <option value="@property.PropertyId">
+                                    (Id: @property.PropertyId) @property.SizeOfHouse sq.ft @property.PropertyType -
+                                    @property.PropertyAddress,
+                                    @property.City, @property.Province, @property.Country
+                                </option>
+                            }
+                        </select>
+                        <span asp-validation-for="PropertyId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    @(ViewBag.Action == "Add" ? "Add Sales Record" : "Save Changes")
+                </button>
+                <a asp-action="ListSales" class="btn btn-secondary">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

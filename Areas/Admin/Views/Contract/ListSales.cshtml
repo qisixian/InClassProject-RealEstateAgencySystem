@@ -16,7 +16,7 @@
 
 
 <li class="list-group-item">
-    <h5 class="mt-1"><a asp-action="Add">Add a Sales Record</a></h5>
+    <h5 class="mt-1"><a asp-action="AddSalesRecord">Add a Sales Record</a></h5>
 </li>
 
 @* <a href="@Url.Action("Add", "Book")" class="btn btn-primary">Create Record</a> *@
@@ -64,9 +64,9 @@
                 <td>@SalesContract.IsFinalized</td>
                 <td>
                     <div class="d-inline-flex align-items-center gap-1">
-                        <a href="@Url.Action("Edit", "Book", new { id = SalesContract.SalesRecordId })"
+                        <a href="@Url.Action("EditSalesRecord", new { id = SalesContract.SalesRecordId })"
                             class="btn btn-sm btn-info"><i class="bi bi-pencil"></i> Edit</a>
-                        <form asp-action="Delete" asp-controller="Book" method="post" style="display:inline;">
+                        <form asp-action="DeleteSalesRecord" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@SalesContract.SalesRecordId" />
                             <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
                         </form>

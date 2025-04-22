@@ -10,10 +10,10 @@ namespace RealEstateAgencySystem.Models
         public int RentalRecordId { get; set; }
         
         [Required(ErrorMessage = "Owner Id is required")]
-        public required string OwnerCustomerId { get; set; }
+        public string OwnerCustomerId { get; set; }
         
         [Required(ErrorMessage = "Tenant Id is required")]
-        public required string TenantCustomerId { get; set; }
+        public string TenantCustomerId { get; set; }
         
         [Required(ErrorMessage = "Property Id is required")]
         public int PropertyId { get; set; }
