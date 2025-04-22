@@ -61,9 +61,3 @@ optimization:
 - support role controll
 - support search properties
 - fetch ImageId but not image object in Property Detail action
-
-chanllenge record:
-
-Failed executing DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-DROP TABLE "Customers";
-SQLite Error 19: 'FOREIGN KEY constraint failed'.
