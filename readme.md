@@ -22,17 +22,6 @@ The application will provide the following functionalities:
 ![ER Diagram](ERD.drawio.png)
 
 
-### Use case Diagram
-
-Explore page (needs a lot of filter)
-- property Details page
-
-User page
-- upload property
-- my Listing property
-
-when register, user need to choose to be a buyer or a saler.
-
 
 ### run app locally
 mock secrets need to be set before run the app
@@ -57,13 +46,9 @@ dotnet run
 ### todo
 new feature:
 
-
 enhancement:
-add error handling to edit user profile
-fix bug when navigate to register user page
 
 optimization:
-- fetch ImageId but not image object in Property Detail action
 - figure out a bettter way to solve SQLite decimal ordering error
 
 ### finished
@@ -75,14 +60,10 @@ optimization:
 - support register user
 - support role controll
 - support search properties
+- fetch ImageId but not image object in Property Detail action
 
 chanllenge record:
 
 Failed executing DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 DROP TABLE "Customers";
 SQLite Error 19: 'FOREIGN KEY constraint failed'.
-
-
-image generation token:
-你能帮我生成尺寸为1920 × 1080 像素的图片吗？
-我希望的图片是轻奢 风格的，用途是网页背景，有低调金色点缀和隐隐的大理石纹样，视觉元素在图片中松散的分布，不需要包含任何文字，尺寸为1920 × 1080 像素
